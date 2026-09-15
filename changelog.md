@@ -1,0 +1,792 @@
+<!--
+SPDX-FileCopyrightText: 2025 Bonfire Networks <https://bonfirenetworks.org/contact/>
+
+SPDX-License-Identifier: AGPL-3.0-only
+SPDX-License-Identifier: CC0-1.0
+-->
+
+# Changelog: past releases
+
+## Bonfire [1.0.7 (2026-08-30)]
+
+### Added
+- ✨ Added a new "Stream" interface preset: a flatter, content-first look for feeds, threads and widgets — selectable per user or instance in settings, together with the existing "typographic" preset remaining the default (thanks @ivanminutillo)
+- ✨ Long discussion threads now start with heavy reply branches folded behind a compact summary row (replier avatars + reply count) that expands in place, so big conversations are easier to scan (thanks @ivanminutillo)
+- ✨ Added time-gap dividers between thread replies ("2 years later/earlier"), so revived old discussions are easy to spot (thanks @ivanminutillo)
+- ✨ Added a compact context header that appears when the original post scrolls out of view on a discussion, showing the author and a shortcut back to the top  (thanks @ivanminutillo)
+- ✨ Added a compact, horizontally scrollable circles widget to dashboards, with direct links to each circle [#2233](https://github.com/bonfire-networks/bonfire-app/issues/2233) (thanks @ivanminutillo)
+- ✨ Added an empty state that helps people create their first circle when none exist. (thanks @ivanminutillo)
+- ✨ Admins can transfer a profile to another account [`6b7f50f`](https://github.com/bonfire-networks/bonfire-app/commit/6b7f50fe4fa489a26cee3a917e52eeada40793cf) (thanks @mayel)
+- ✨ Instances using allow-list federation (Archipelago mode) can now show the list of allowed instances and actors on their about page, so anyone can see who the community federates with [#2234](https://github.com/bonfire-networks/bonfire-app/issues/2234) (thanks @mayel)
+- ✨ Pull down to refresh in the mobile web app (PWA) [#2196](https://github.com/bonfire-networks/bonfire-app/issues/2196) (thanks @ivanminutillo)
+- ✨ New feed filters and presets: local-instance-only activities, public activities, and activities with custom boundaries [#1586](https://github.com/bonfire-networks/bonfire-app/issues/1586) (thanks @mayel and Gilles)
+- 🚧 New admin console extension: "under the hood" diagnostics and a terminal in the web UI [`0dea9da`](https://github.com/bonfire-networks/bonfire_ui_console/commit/0dea9da558c68b739f193682c1a26d530961d705) (thanks @mayel)
+- 🚧 Groundwork for federating public groups, starting with better interop with remote groups, including threadiverse compatibility work, and stronger actor attribution (thanks @mayel)
+- 📝 New admin monitoring page showing CPU use and running processes (thanks @mayel)
+
+### Changed
+- 🚀 Local and remote feeds made faster: whether an activity is local is now recorded when it is created instead of calculated on every feed query [#2168](https://github.com/bonfire-networks/bonfire-app/issues/2168) (thanks @mayel)
+- 💅 Redesigned the "Customize this feed" widget (thanks @ivanminutillo)
+- 💅 Stream layout: accent colour is reserved for the compose button and active navigation (thanks @ivanminutillo)
+- 💅 Stream layout: dividers and hairlines now derive from the text colour instead of the theme's secondary colour (thanks @ivanminutillo)
+- 💅 Stream layout: at in-between window sizes the side columns now shrink before the feed does, keeping the reading column the widest element on the page (thanks @ivanminutillo)
+- 💅 Dashboard section titles (Circles, Spotlight, Top discussions) now share the same typography and left edge in both interface presets (thanks @ivanminutillo)
+- 🎨 Reworked the dark theme palette: neutral dark surfaces with clearer contrast steps, and a blue accent replacing amber as the primary colour, still WIP (thanks @ivanminutillo)
+- 💅 Redesigned the "Top discussions" dashboard widget as a compact ranked list, with reply totals and participant previews that make active conversations easier to scan (thanks @ivanminutillo)
+- 📱 Redesigned the logged-out mobile navigation dock with instance branding (thanks @ivanminutillo)
+- 🎨 Redesigned Circle pages with a stronger identity-focused header, member avatar collage, clearer ownership and visibility details (thanks @ivanminutillo)
+- 🐛 Improved Timeline reading positions UX (thanks @ivanminutillo)
+- 💅 Redesigned the “Recent Articles” sidebar widget in the Stream layout as a compact, single-layer list that is easier to scan (thanks @ivanminutillo)
+- 💅 Discussions now show a single metadata row: reply and boost counts sit alongside the layout and sort controls, instead of in a separate bordered band stacked above them (thanks @ivanminutillo)
+- 💅 The original post of a discussion now reads a step larger than its replies, and top-level replies are joined by a continuous thread line so a conversation reads as one thread rather than stacked cards (thanks @ivanminutillo)
+- ⚡ More instance performance and resource-usage tuning, continuing the work on running well on small servers [#2100](https://github.com/bonfire-networks/bonfire-app/issues/2100) (thanks @mayel)
+- 📝 Postgres in Docker now gets a larger shared-memory allocation (`shm_size`), avoiding crashes on busier instances [`28631b4`](https://github.com/bonfire-networks/bonfire-app/commit/28631b45ec0b2022d62f8739aaebf6497655b700) (thanks @mayel)
+- ✨ Admins can now prevent members from overriding the instance theme, for communities that want a consistent look [#2039](https://github.com/bonfire-networks/bonfire-app/issues/2039) (thanks @ccamara and @mayel)
+- 💅 Follow button and profile header UX improvements (thanks @ivanminutillo)
+- 📝 Ghost integration: article import improvements, including how articles can be imported into topics (thanks @ivanminutillo and @mayel)
+- 🐛 URLs in direct messages are now converted into links [#2195](https://github.com/bonfire-networks/bonfire-app/issues/2195) (thanks @ivanminutillo)
+- 📝 Articles now show author bylines and where a piece was published (thanks @ivanminutillo)
+- 📝 PGP-encrypted system emails (added in 1.0.5) now configurable and off by default (thanks @mayel)
+- ♿ Accessibility improvements across feeds and threads (thanks @ivanminutillo)
+- 🌐 Improved localisation coverage throughout the app (thank you translators!)
+
+### Fixed
+- 🐛 Quote-request notifications now show the requester’s comment, so you can review what they want to say before accepting the quote (thanks @ivanminutillo)
+- 🐛 Fixed full-width buttons (like the audience selector) appearing to shift sideways on hover (thanks @ivanminutillo)
+- 🐛 Replies to a deleted or restricted comment no longer silently disappear from discussions: they stay in place under an "unavailable comment" placeholder (thanks @ivanminutillo)
+- 🐛 Fixed thread connector lines not aligning with avatars in the Stream layout, and the missing connector to a folded branch's summary row (thanks @ivanminutillo)
+- 📱 Fixed post previews getting stuck on a blank loading screen when the connection dropped at the wrong moment (e.g. reopening the app on mobile): the preview now waits for the connection to return instead (thanks @ivanminutillo)
+- 🐛 Fixed back navigation sometimes skipping an extra page after reloading while viewing a post opened from a feed (thanks @ivanminutillo)
+- 📱 Fixed mobile back-swipe navigation: swiping back after opening a post from a feed no longer needs a phantom extra swipe, flashes the wrong page, or unexpectedly jumps you back to the feed a moment later (thanks @ivanminutillo)
+- 🐛 Fixed browser back/forward behaving erratically after using post previews, and made back navigation return you to your previous scroll position even on pages that load content progressively (thanks @ivanminutillo)
+- 🐛 Post previews now close instantly and reliably: going back no longer leaves the preview open over the page you returned to, and pressing Escape closes it (thanks @ivanminutillo)
+- 📱 Going back on mobile after the app has been in the background no longer waits on a blank screen and then lands on the wrong page (thanks @ivanminutillo)
+- 🐛 Fixed thread reply and boost counts always reading as plural, so a discussion with one reply no longer says "1 Replies" (thanks @ivanminutillo)
+- 🐛 Profile timelines sometimes skipped activities when paginating [#2245](https://github.com/bonfire-networks/bonfire-app/issues/2245) (thanks @ivanminutillo and @mayel)
+- 🐛 Editing a post now properly federates the update to Mastodon [#2218](https://github.com/bonfire-networks/bonfire-app/issues/2218) (thanks @ivanminutillo and @mayel)
+- 🐛 Fixed user deletion, including federating it correctly [`669aff7`](https://github.com/bonfire-networks/bonfire_federate_activitypub/commit/669aff77a2e1686dfdb86fb1b04df77e687a28b1) (thanks @mayel)
+- 🚧 Image descriptions (alt text) now properly federate with the image [#2241](https://github.com/bonfire-networks/bonfire-app/issues/2241) (thanks @mayel and @ivanminutillo)
+- 🐛 Liking or boosting a post no longer shows the wrong favicon and date on the original post's preview [#2217](https://github.com/bonfire-networks/bonfire-app/issues/2217) (thanks @ivanminutillo)
+- 🐛 Replying to a post again automatically includes the mentions in the composer [#2216](https://github.com/bonfire-networks/bonfire-app/issues/2216) (thanks @ivanminutillo)
+- 🐛 Creating a new profile UI fixed on mobile [#2199](https://github.com/bonfire-networks/bonfire-app/issues/2199) [#2178](https://github.com/bonfire-networks/bonfire-app/issues/2178) (thanks @ju1m, @ruzko and @mayel)
+- 🐛 "Copy link" on a post now copies the post's URL [#2198](https://github.com/bonfire-networks/bonfire-app/issues/2198) (thanks @ccamara and @ivanminutillo)
+- 🐛 The Direct Messages button did nothing [#2188](https://github.com/bonfire-networks/bonfire-app/issues/2188) (thanks @btfreeorg, @mayel, and @ivanminutillo)
+- 🐛 Switch profile page should no longer show phantom notification counts [#2220](https://github.com/bonfire-networks/bonfire-app/issues/2220) (thanks @mayel and @btfreeorg)
+- 🐛 The poll preview now opens from the dashboard widget [#2125](https://github.com/bonfire-networks/bonfire-app/issues/2125) (thanks @ivanminutillo)
+- 🐛 Spotlight now follows the theme's colours [#2061](https://github.com/bonfire-networks/bonfire-app/issues/2061) (thanks @ccamara and @ivanminutillo)
+- 🐛 Toggling dashboard widgets no longer causes an error [#1869](https://github.com/bonfire-networks/bonfire-app/issues/1869) (thanks @1m2lab and @ivanminutillo)
+- 🐛 The landing page now reflects the instance's default theme [#1749](https://github.com/bonfire-networks/bonfire-app/issues/1749) (thanks @btfreeorg and @ivanminutillo)
+- 🐛 In theme customisation, colour buttons no longer change the wrong colour [#1747](https://github.com/bonfire-networks/bonfire-app/issues/1747) (thanks @btfreeorg, @ccamara, and @ivanminutillo)
+- 🐛 Theme colour picker dropdown no longer closes immediately in admin settings [#1829](https://github.com/bonfire-networks/bonfire-app/issues/1829) (thanks @creatinglake and @ivanminutillo)
+- 🐛 Fixed @ mention search [`77425c1`](https://github.com/bonfire-networks/bonfire-app/commit/77425c1d2431c79254451442dab4a406a45141d4), [`5148b51`](https://github.com/bonfire-networks/bonfire-app/commit/5148b51e8962c3a093dba4d9e8c30768f970da29) (thanks @mayel)
+- 🐛 Fixed a missing `bonfire_ui_reactions` dependency in Ember [PR #2](https://github.com/bonfire-networks/ember/pull/2) (thanks @ju1m)
+- 🐛 Profile view: the posts tab no longer disappears when viewing followers or following [#1862](https://github.com/bonfire-networks/bonfire-app/issues/1862) (thanks @ivanminutillo)
+- 🐛 Signing up shows a better error when the mail server is unreachable [`adda86f`](https://github.com/bonfire-networks/bonfire_ui_me/commit/adda86fc1d2383eb4b8730f8614da685c4d14c9f) (thanks @ivanminutillo)
+- 🐛 Fixed invite link expiry [`02f775a`](https://github.com/bonfire-networks/bonfire_invite_links/commit/02f775a79b39ae36fb514bfda4b43560b82f7993) (thanks @mayel)
+- 🐛 Quoting a post no longer breaks the composer [`670cdc8`](https://github.com/bonfire-networks/bonfire_ui_social/commit/670cdc827792565514b775ab2badf137230a3389) (thanks @ivanminutillo)
+- 🐛 Comment embeds (Bonfire Telling): fixed vertical scrolling in the iframe and publishing glitches (thanks @mayel and @ivanminutillo)
+
+
+## Bonfire Community [1.0 beta (2026-07-27)]
+
+A new flavour of Bonfire for groups that need to organise together, not just post at each other: groups and topics, community rules, decision-making, events, shared organisation profiles and announcements, all in one space you can reshape block by block.
+
+**Read the full announcement: [Bonfire for communities](https://bonfirenetworks.org/posts/bonfire-for-communities/)**
+
+This is a 1.0 beta: everything here is ready to use and already running in real communities, but groups don't yet federate between instances. We're designing that in the open with the [W3C groups task force](https://github.com/swicg/groups/issues) so that groups work across the whole fediverse rather than only between Bonfire servers. Try it on [the campground](https://campground.bonfire.cafe), our open test instance.
+
+### Added
+
+- ✨ **Groups and topics**: spaces with their own membership, permissions and rules. Built on Bonfire's boundaries system, so a group can be a public forum, an announcement-only channel, a private invite-only room, or visible only to a particular circle, and you can change your mind later. Topics live inside groups and keep conversations from collapsing into one stream, and you can follow a whole group or just a single topic. Local-only for now (see above).
+
+- ✨ **Community rules**: both an instance and each group within it can set out their own shared expectations, so newcomers know what kind of space they're entering and moderators have something concrete to point to. Design draws on governance research with [Princeton HCI](https://hci.princeton.edu/) and [design workshops with fediverse organisers](https://doi.org/10.1145/3772318.3790855) published at CHI 2026.
+
+- ✨ **Decision-making**: tools ranging from quick polls to structured consensus, so a group can use the lightest process that fits the decision. Single or multiple choice polls; proposal and consensus, drawing on sociocratic practice (collect proposals, discuss and amend, integrate objections, then move forward); and weighted score voting, where voters rate each option rather than picking one, and objections can optionally count for more than approvals, up to outright blocking. Polls federate as ActivityPub `Question` polls, so people on Mastodon and elsewhere can take part. [`5f2d3bf`](https://github.com/bonfire-networks/bonfire-app/commit/5f2d3bfcbaaa26b5f508e11bc355d00fcdd9095d) 
+
+- ✨ **Events**: gatherings with calendar and list views for browsing what's coming up, built in cooperation with [Lauti](https://lauti.org/blog/lauti-updates-2026/#cooperation-with-bonfire), an open source community calendar, so events can be published and discovered across apps instead of locked inside one.
+
+- ✨ **Organisation profiles**: create a shared profile for a publication, collective, working group or moderation team, co-managed by several accounts. From the outside it behaves like any other profile (it posts, it can be followed, it federates as an ActivityPub `Organization`), but the people behind it can come and go without anyone handing over a password. [#2112](https://github.com/bonfire-networks/bonfire-app/issues/2112) 
+
+- ✨ **Ghost integration**: an API-level integration (webhooks and magic-link login) that syncs a publisher's members and membership tiers into their Bonfire space, with automatic article import, so articles arrive in the community as an invitation to discuss. See [the Ghost integration](https://bonfirenetworks.org/ghost/) 
+
+- ✨ **Archipelago mode**: allow-list federation, so moderators can choose which servers and people they federate with.
+
+
+## Bonfire Social [1.0.6 (2026-07-27)]
+
+A maintenance release for Bonfire Social, with one substantial improvement: we optimised the SQL queries behind [boundaries](https://bonfirenetworks.org/posts/introducing_boundaries/). Since boundaries decide who can see and do what, those queries run underneath nearly every page in the app, so feeds, threads, profiles and search are all considerably faster. Plus a round of design changes throughout.
+
+The bigger news is alongside it: see [Bonfire for communities](https://bonfirenetworks.org/posts/bonfire-for-communities/) for the new community flavour, and note that from now on community features are prioritised over social ones, though we'll keep maintaining Bonfire Social for instances that want to stay as they are.
+
+### Added
+
+- ✨ Follow your instance's theme: a new setting so your app follows the look your instance admin has chosen, instead of setting it yourself [#2120](https://github.com/bonfire-networks/bonfire-app/issues/2120) (thanks @ccamara and @ivanminutillo)
+- ✨ Custom previews for each media type in feeds, so audio, video and other files each get a preview that suits them [#1757](https://github.com/bonfire-networks/bonfire-app/issues/1757) (thanks @ivanminutillo)
+- 📝 Added systemd instructions for running Bonfire [`d846f49`](https://github.com/bonfire-networks/bonfire-app/commit/d846f493011aa693d62fbcf7e7c0857724d286dc) (thanks @ccamara)
+
+### Changed
+
+- 🚀 **Faster, nearly everywhere**: we optimised the database queries behind [boundaries](https://bonfirenetworks.org/posts/introducing_boundaries/). Every feed, thread and profile has to work out what you're allowed to see, so these queries run underneath almost everything, and speeding them up speeds up the whole app. [#2100](https://github.com/bonfire-networks/bonfire-app/issues/2100) (thanks @mayel)
+- 💅 **A refreshed, more flexible visual system**: Introduced a cohesive design system powered by reusable design tokens. This improves consistency across the interface and makes it easier to create and evolve distinct visual themes without rewriting component markup or utility classes. (thanks Andy King and @ivanminutillo)
+- 💅 Simplified the instance boundaries page, so who-can-do-what is easier to read at a glance [#587](https://github.com/bonfire-networks/bonfire-app/issues/587) (thanks @ivanminutillo and @mayel)
+- 💅 Improved the "most recent discussion" dashboard widget [#1164](https://github.com/bonfire-networks/bonfire-app/issues/1164) (thanks @ivanminutillo)
+- 💅 Opening a link to a comment now keeps your scroll position centred on that comment, instead of jumping [#652](https://github.com/bonfire-networks/bonfire-app/issues/652) (thanks @ivanminutillo)
+- 🌐 Improved translations and localisation (thanks @mayel and @ivanminutillo and Magdalena Berger and all the other translators!)
+- 📝 Updated the bare-metal (no root) install instructions [PR #2138](https://github.com/bonfire-networks/bonfire-app/pull/2138) (thanks @ccamara)
+
+### Fixed
+
+- 🐛 Fixed a broken `text` dependency on Erlang/OTP 28 [#2110](https://github.com/bonfire-networks/bonfire-app/issues/2110) (thanks @ju1m and @mayel)
+- 🐛 Instance metrics now display again [#2057](https://github.com/bonfire-networks/bonfire-app/issues/2057) (thanks @ccamara and @simonlpaige)
+- 🐛 Block and disable buttons now work in the instance members list in instance settings [#1873](https://github.com/bonfire-networks/bonfire-app/issues/1873) (thanks @mayel)
+- 🐛 After following an account that approves followers manually, the button now says "requested" rather than "following" [#1633](https://github.com/bonfire-networks/bonfire-app/issues/1633) (thanks @jonpincus and @mayel)
+
+
+
+## Bonfire Social [1.0.5 (2026-06-30)]
+
+### Added
+
+- ✨ Archipelago mode: the usual way to federate is "open" where you connect with the entire fediverse by default and block bad actors as they show up (a never-ending game of whack-a-mole, since anyone can spin up a new server or account). Archipelago mode flips this around: instance moderators can choose to federate *only* with a hand-picked allow-list of trusted people, groups and servers, and keep everything else out by default. Trusted communities can in turn agree to federate with each other, forming a shared, opt-in network (an "archipelago" of like-minded "islands") with common rules and safety expectations. This is great for tightly-knit communities who only want to connect with their friends and allies, and for groups who federate together by choice (neighbourhoods, towns, assemblies, cooperatives, movements, or not-for-profit organisations) and want to stay connected to one another but not necessarily be open to the wider internet. (Credit for the concept goes to [Oliphant](https://writer.oliphant.social/oliphant/islands-an-opt-in-federated-network) and [Nora Tindall](https://nora.codes/post/the-fediverse-is-already-dead/)) [#1038](https://github.com/bonfire-networks/bonfire-app/issues/1038) [#2015](https://github.com/bonfire-networks/bonfire-app/issues/2015) (thanks @mayel)
+![Screenshot of instance federation settings](https://github.com/user-attachments/assets/b62fac6e-9618-4a7a-ae43-bebf321fd65e)
+![Screenshot of allow-list configuration](https://github.com/user-attachments/assets/871d8e3f-9928-48fc-b0f2-e48c6757c968)
+
+- ✨ Admins can now control how much background work the server does at once (such as sending and receiving federated activity), so a busy instance on a small server doesn't get overloaded. There are three levels of control, from simple to advanced: pick an overall speed preset (Eco / Default / Turbo); prioritise particular kinds of activity (mentions & follows, incoming, or outgoing); or fine-tune each individual task queue. Changes take effect instantly, with no restart needed [#1638](https://github.com/bonfire-networks/bonfire-app/issues/1638) (thanks @mayel)
+
+![Screenshot of background task settings](https://github.com/user-attachments/assets/421bdcec-0a1e-4aec-9754-b3e77f224bd9)
+
+- 📝 Broadcast announcements: instance admins and moderators can send a message to everyone on their instance at once, which is delivered as a push notification and shows up in everyone's notifications feed. Handy for downtime warnings, community updates, or important news (thanks @mayel)
+
+- 📝 Embeddable widgets (drop a small piece of Bonfire content into any other website): after comment threads, the second widget available shows your instance's pinned posts, so visitors to your regular website can preview highlights from the fediverse [#2017](https://github.com/bonfire-networks/bonfire-app/issues/2017) (thanks @mayel)
+
+- 🚧 PGP-encrypted emails: for people who have published a PGP key (a way to encrypt email so only the intended recipient can read it) or use a PGP-encrypted service like ProtonMail, Bonfire now sends system emails (like signup confirmations and password resets) in encrypted form [#2019](https://github.com/bonfire-networks/bonfire-app/issues/2019) (thanks @mayel)
+
+- ✨ Reset theme to defaults: if you've customised your instance's colours and styling and want to start over, there's now a one-click button to restore the original look [#2024](https://github.com/bonfire-networks/bonfire-app/issues/2024) (thanks @ccamara and @ivanminutillo)
+
+- ✨ Added an Impressum page (a legally-required about page common in some countries, identifying who runs the site) (thanks @ivanminutillo)
+
+- 📝 Search re-indexing tool: when an admin switches to a different search engine (see Changes below), they can now rebuild the search index from existing content so older posts remain findable. Run `Bonfire.Search.Indexer.reindex_from_db` in the Elixir (iex) console (thanks @mayel and @ivanminutillo)
+
+- ✨ Sign-in consent screen: when you log into a third-party app using your Bonfire account, you now see a clear screen showing which app is asking for access and what it will be able to do, so you can approve or deny it (thanks @mayel)
+
+- 🐛 All widgets on dashboard, such as "recommended profiles", can now be refreshed by mods after they make changes [#2069](https://github.com/bonfire-networks/bonfire-app/issues/2069) (thanks @ccamara and @mayel)
+
+### Changed
+
+- 🚀 Switched the search engine to [Sonic](https://github.com/valeriansaliou/sonic#sonic), which is lighter and faster, making searches quicker and easier for instances to run. If you're running Bonfire using [co-op cloud](https://coopcloud.tech/), see the [recipe upgrade docs](https://git.coopcloud.tech/coop-cloud/bonfire.git#upgrades) for information about how to switch, and once you've switched, you can run `Bonfire.Search.Indexer.reindex_from_db` in the Elixir (iex) console to re-index existing posts and users (only local ones by default).
+- ✨ Various speed and usability improvements throughout the app
+- ✨ Improved the mobile app experience (when Bonfire is installed to your phone's home screen as a PWA, you may need to delete it from your home screen and re-add it) (thanks @ivanminutillo)
+- ✨ Easier blocking of other servers: blocking a remote server is now simpler to do, both for moderators (blocking it for the whole instance) and for individual users (just for themselves) [#1631](https://github.com/bonfire-networks/bonfire-app/issues/1631) (thanks @jonpincus, @mayel, and @ivanminutillo)
+- ✨ When federation is turned off or set to manual, the app now makes it clear when something can't be done, such as following or mentioning someone on another server, or looking up a remote user or link in search (previously these would silently fail or show an error) [#647](https://github.com/bonfire-networks/bonfire-app/issues/647) [#2058](https://github.com/bonfire-networks/bonfire-app/issues/2058) (thanks @ccamara and @mayel)
+- ✨ Mobile and native apps now stay signed in for longer before asking you to log in again [#1806](https://github.com/bonfire-networks/bonfire-app/issues/1806) (thanks @ivanminutillo and @mayel)
+- 💅 The thread sidebar now shows just the top few participants, with an option to reveal the rest, instead of a long list [#1988](https://github.com/bonfire-networks/bonfire-app/issues/1988) (thanks @ivanminutillo and @mayel)
+- 📝 Self-hosters can now provide sensitive credentials (API keys, passwords, etc.) in files, rather than putting them in environment variables [#1886](https://github.com/bonfire-networks/bonfire-app/issues/1886) (thanks @mayel)
+- 🚀 Clearer help text when linking your accounts on other fediverse servers [#1607](https://github.com/bonfire-networks/bonfire-app/issues/1607) (thanks @ccamara and @mayel)
+- 🐛 Hashtags are now case-insensitive, so #Bonfire and #bonfire count as the same tag [#2023](https://github.com/bonfire-networks/bonfire-app/issues/2023) [PR #5](https://github.com/bonfire-networks/bonfire-app/pull/5) (thanks @ccamara, @mvanhorn, and @mayel)
+- 📝 Moved long-form articles into their own dedicated extension, making them easier to maintain and build on [`197a8e9`](https://github.com/bonfire-networks/bonfire-app/commit/197a8e9528504fba134990d73e08923f806401c3) (thanks @mayel)
+- 🐛 Receiving a deletion from another server for something we don't have locally no longer logs a federation error or gets retried needlessly [#1784](https://github.com/bonfire-networks/bonfire-app/issues/1784) (thanks @ivanminutillo and @mayel)
+- 🐛 Profile banner images now display in full quality (they previously looked blurry on some screens) (thanks @ivanminutillo)
+- 🐛 Poll results now show who voted for each option (thanks @ivanminutillo)
+- ✨ Made the instance permission settings clearer and easier to use for admins (thanks @ivanminutillo)
+- 🐛 Improved remembering your reading position, so you return to where you left off (thanks @ivanminutillo)
+- 🌐 Improved translations (thanks @ivanminutillo)
+- 🐛 After revealing sensitive media, you're no longer asked to reveal it again when opening it fullscreen [#2006](https://github.com/bonfire-networks/bonfire-app/issues/2006) (thanks @LiquidParasyte and @mayel)
+- 🐛 Image descriptions (alt text) are no longer shown twice in the fullscreen image viewer [#2005](https://github.com/bonfire-networks/bonfire-app/issues/2005) (thanks @LiquidParasyte and @mayel)
+- 🐛 Editing a post from another app (over the API) updates but no longer fully replaces previous info [#1930](https://github.com/bonfire-networks/bonfire-app/issues/1930) (thanks @mayel)
+- Changed background tasks configuration (Oban job queues) to trigger execution whenever a new task is inserted instead of just checking every 2 seconds, which means federated activities can be processed quicker
+
+### Fixed
+
+- 🐛 Sensitive-content warnings can no longer be accidentally bypassed: previously a post hidden behind a "sensitive content" cover could sometimes be scrolled past in a way that revealed it without you choosing to view it [#2007](https://github.com/bonfire-networks/bonfire-app/issues/2007) (thanks @LiquidParasyte and @ivanminutillo)
+- 🚧 Fixed problems that prevented federating with certain other servers [#2029](https://github.com/bonfire-networks/bonfire-app/issues/2029)  (thanks @mayel, @ccamara, @yawnbox)
+- 🐛 The mobile Spotlight dashboard can now be swiped sideways from anywhere on the panel, not just along the top edge (thanks @ivanminutillo)
+- 🐛 Link previews no longer split words across two lines without a hyphen, making them easier to read (thanks @ivanminutillo)
+- 🐛 The sidebar no longer jumps back to the top after you click an item lower down, making longer menus easier to navigate (thanks @ivanminutillo)
+- 🐛 Fixed loading more posts ("pagination") on long comment threads (thanks @ivanminutillo)
+- 🐛 Federation (Archipelago) settings now show their saved values correctly after you change them [#2056](https://github.com/bonfire-networks/bonfire-app/issues/2056) (thanks @ccamara and @mayel)
+- 🐛 Clearer "verified" indicator on profile links: the checkmark again reflects whether a linked website actually links back to your profile [#2042](https://github.com/bonfire-networks/bonfire-app/issues/2042) (thanks @ccamara and @mayel)
+- 🐛 Removed a broken scope switcher on the blocked/ghosted/silenced settings pages that led to a "no settings available" message [#2018](https://github.com/bonfire-networks/bonfire-app/issues/2018) (thanks @gillesdutilh and @mayel)
+- 🐛 After you accept a follow request, the notification now shows the correct person (it previously showed the wrong one), and no longer briefly appears broken until you refresh [#1907](https://github.com/bonfire-networks/bonfire-app/issues/1907) [#1659](https://github.com/bonfire-networks/bonfire-app/issues/1659) (thanks @mayel)
+- 🐛 Fixed incorrect accessibility labels on the landing page, improving screen-reader navigation [#1449](https://github.com/bonfire-networks/bonfire-app/issues/1449) (thanks @jonpincus and @mayel)
+- 🐛 Quote posts from Bluesky (atproto) no longer show a broken, duplicated link preview [#1759](https://github.com/bonfire-networks/bonfire-app/issues/1759) (thanks @mayel)
+- 🐛 Incoming PeerTube "view" pings no longer cause repeated errors in federation logs [#1802](https://github.com/bonfire-networks/bonfire-app/issues/1802) (thanks @mayel)
+- 🐛 Videos from PeerTube that are still being processed no longer fail to federate (previously a missing media type would cause an error) [#1728](https://github.com/bonfire-networks/bonfire-app/issues/1728) (thanks @mayel)
+
+
+## Bonfire Social [1.0.4 (2026-05-22)]
+
+### Added
+- ✨ Add bare metal instructions without root access [PR #2000](https://github.com/bonfire-networks/bonfire-app/pull/2000) (thanks @ccamara)
+- ✨ Add CIMD support for OAuth authentication (thanks @evanp)
+- 📝 Optional new search backend: [Sonic](https://github.com/valeriansaliou/sonic#sonic) (thanks @mayel) 
+
+### Changed
+- ✨ re-enable auto-mark-as-read for notifications and messages [#1418](https://github.com/bonfire-networks/bonfire-app/issues/1418) (thanks @mayel and @ivanminutillo)
+- ⚡ Optimize guest local feed origin filter [PR #6](https://github.com/bonfire-networks/bonfire_social/pull/6) (thanks @sftwrstef)
+- 📝 Add rate limits to more API surfaces (thanks @mayel)
+- 🐛 Meaningful OpenGraph/Twitter meta tags when sharing profiles and posts [#1992](https://github.com/bonfire-networks/bonfire-app/issues/1992) (thanks @ivanminutillo)
+
+### Fixed
+- 🐛 DM loses user id intermittent? [#1780](https://github.com/bonfire-networks/bonfire-app/issues/1780) (thanks @btfreeorg and @ivanminutillo)
+- 🐛 Applying search rises an error [#1662](https://github.com/bonfire-networks/bonfire-app/issues/1662) (thanks @1m2lab and @ivanminutillo)
+- 🐛 User preferences error messages only display the leftmost 25% of the red error box [#1644](https://github.com/bonfire-networks/bonfire-app/issues/1644) (thanks @mayel and @ivanminutillo)
+- 🐛 Video playback in a post has no controls and no volume.  It says gif in upper right hand corner [#1643](https://github.com/bonfire-networks/bonfire-app/issues/1643) (thanks @mayel, @ivanminutillo, and @johannab33)
+- 🐛 Instance Settings periodically reloads while editing [#1593](https://github.com/bonfire-networks/bonfire-app/issues/1593) (thanks @ltning, @mayel, and @ivanminutillo)
+- ✨ Move tool bar on mobile [#1867](https://github.com/bonfire-networks/bonfire-app/issues/1867) (thanks @btfreeorg, @ivanminutillo, @ruzko, and @mayel)
+- ✨ pagination of users and instances lists when logged out [#1655](https://github.com/bonfire-networks/bonfire-app/issues/1655) (thanks @mayel and @ivanminutillo)
+- 🐛 visiting members page as a guest crashes on load more [#1752](https://github.com/bonfire-networks/bonfire-app/issues/1752) (thanks @ivanminutillo and @mayel)
+- 📝 various other fixes and improvements
+
+### Security
+- ✍️ Patched a [vulnerability with Linked Data Signatures](https://w.on-t.work/activitypub/may-2026-vulnerability) (thanks @wont-work and ozone)
+- 🗝️ Hardening in MFM parsing (thanks Oneric of Akkoma)
+
+
+## Bonfire Social [1.0.3 (2026-05-14)]
+
+### Added
+
+- ✨ View Bonfire comments under any web page (via embed) (thanks @mayel,@ivanminutillo)  
+- ✨ Text-based polls (thanks @ivanminutillo, @mayel)  
+- 📝 A way to sort comments by most popular (upvotes \+ likes \+ comments); with popularity of nested comment aggregated when viewing nested threads (thanks @mayel)  
+- 📝 Dashboard Widgets [\#1734](https://github.com/bonfire-networks/bonfire-app/issues/1734) (thanks @ivanminutillo and @mayel)  
+  - Getting started dashboard widget (thanks @ivanminutillo  
+  - Closing soon polls widget on dashboard (thanks @ivanminutillo)  
+  - Spotlight / pinned posts widget on dashboard (thanks @ivanminutillo)  
+  - ✨ 3 most-replied local posts widget on dashboard (thanks @ivanminutillo)  
+- 📝 community rules, thanks to research and co-design with Princeton HCI students and researchers [`d2bad70`](https://github.com/bonfire-networks/bonfire-app/commit/d2bad7038250758080fa037ddb52f7fcc38990a8), [`9beb3e0`](https://github.com/bonfire-networks/bonfire-app/commit/9beb3e0059f860625d41076be31da429a6a5e7f1) (thanks @mayel)  
+- ✨ Marker display configurable per feed (enable/disable/disable on nav click), disabled by default in flavour (thanks @ivanminutillo)  
+- ✨ Link to user settings in language dropdown in composer (thanks @ivanminutillo)  
+- 🚀 detect when a remote user's avatar or banner image 404s and trigger an actor refetch/update [#1982](https://github.com/bonfire-networks/bonfire-app/issues/1982) (thanks @mayel)
+- ✨ Specify the layout (both the FeedLive and the ActivityLive one) in config for each feed to further customize how they're rendered in the page [\#1376](https://github.com/bonfire-networks/bonfire-app/issues/1376) (thanks @ivanminutillo)  
+- ✨ per-user and per-instance keyword filtering [\#1001](https://github.com/bonfire-networks/bonfire-app/issues/1001) (thanks @ivanminutillo and @mayel)  
+- ✨ Ghost integration: article import via API, creating as Note/article in Bonfire (thanks @mayel,@ivanminutillo)  
+- ✨ Ghost integration: Setting to restrict sign-up to a certain membership tier (thanks @mayel)  
+- ✨ Ghost integration: Per-instance circles created for each membership tier, with instance-level preset boundary matching tier visibility (public / members / paid) (thanks @ivanminutillo, @mayel)  
+- 📝 Ghost integration: Article image, description/credits, and summary shown when imported into Bonfire (thanks @mayel)  
+- 📝 Ghost integration: imported articles appear under a Bonfire profile linked to the ghost author (thanks @mayel)  
+- ✨ Gated login: Sign-up button optionally pointing to external registration (thanks @ivanminutillo)  
+- ✨ Gated login: Registration link sent by email when email not found in Ghost (thanks @ivanminutillo)
+
+### Changed
+
+- 📝 Post scheduling disabled when commenting (vs new post) (thanks @ivanminutillo)  
+- 💅 "Copy link" on comments widget now includes domain name (thanks @ivanminutillo)  
+- 📝 Direct Messages UX [\#1850](https://github.com/bonfire-networks/bonfire-app/issues/1850) (thanks @ivanminutillo)  
+- 🚧 the first mention or hashtag in a post created on bonfire generates a preview on mastodon [\#1754](https://github.com/bonfire-networks/bonfire-app/issues/1754) [`dd2cd07`](https://github.com/bonfire-networks/bonfire-app/commit/dd2cd076829196508d2a353be46be1779d4a4084) (thanks @mayel and @ivanminutillo)  
+- ✨ enable marker only on certain feeds [`cbca6c5`](https://github.com/bonfire-networks/bonfire-app/commit/cbca6c53a8b209643363089129676a784e7a0c12) (thanks @mayel)
+
+
+### Fixed
+
+- 🚧 1 of my users is no longer Federating [\#1914](https://github.com/bonfire-networks/bonfire-app/issues/1914) (thanks @mayel and @btfreeorg)  
+- 🐛 Pin not working on comments (thanks @ivanminutillo)  
+- 🐛 Posts truncated correctly in spotlight (thanks @ivanminutillo)  
+- 🐛 Dashboard: own posts not appearing in main feed (thanks @jacobinsocial and @ivanminutillo)  
+- 🐛 Feed: clicking reply icon did not show previous comments (thanks @jacobinsocial and @ivanminutillo)  
+- 🐛 Feed: clicking "x" on composer did not return to timeline (thanks @jacobinsocial and @ivanminutillo)  
+- 🐛 Feed: quote function not working (thanks @jacobinsocial and @ivanminutillo)  
+- 🐛 Feed: quoted post not shown inline, only as a link (thanks @jacobinsocial and @ivanminutillo)  
+- 🐛 Feed: non-existent user shown as thread member (thanks @jacobinsocial and @ivanminutillo)  
+- 🐛 Feed: standard view always showing old post instead of newest; "jump to newest" required manually (thanks @jacobinsocial and @ivanminutillo)  
+- 🐛 Feed: translations not shown on posts (thanks @jacobinsocial and @ivanminutillo)  
+- 🐛 Notifications: unread count not clearing after viewing (thanks @jacobinsocial and @ivanminutillo)  
+- 🐛 Notifications: quote notification not dismissing after accepting (thanks @jacobinsocial and @ivanminutillo)  
+- 🐛 Notifications: message notification not dismissing after reading (thanks @jacobinsocial and @ivanminutillo)  
+- 🐛 Notifications: page reloading/flickering every \~3 seconds (thanks @jacobinsocial and @ivanminutillo)  
+- 🐛 Notifications: filter section labelled "Feed Filters" instead of something contextual (thanks @jacobinsocial and @ivanminutillo)  
+- 🐛 Notifications: same notification shown twice (thanks @jacobinsocial and @ivanminutillo)  
+- 🐛 Messages: own account appearing in message list (thanks @jacobinsocial and @ivanminutillo)  
+- 🐛 Messages: emoji picker not working when composing (thanks @jacobinsocial and @ivanminutillo)  
+- 🐛 Messages: "insert emoji" label partially hidden (thanks @jacobinsocial and @ivanminutillo)  
+- 🐛 Messages: search function not working (thanks @jacobinsocial and @ivanminutillo)  
+- 🐛 Messages: scheduling, title, and summary options shown inappropriately in DMs (thanks @jacobinsocial and @ivanminutillo)  
+- 🐛 Profile: "Follow" button showing "Follows you" after following someone (thanks @jacobinsocial and @ivanminutillo)  
+- 🐛 Profile: not possible to change @handle (thanks @jacobinsocial and @ivanminutillo)  
+- 🐛 Profile: not possible to delete profile picture or banner without replacing it (thanks @jacobinsocial and @ivanminutillo)  
+- 🐛 Preferences: dark theme requiring two-step activation vs light theme activating immediately (thanks @jacobinsocial and @ivanminutillo)  
+- 🐛 Preferences: changing discussion layout (flat/threads) had no visible effect (thanks @jacobinsocial and @ivanminutillo)  
+- 🐛 Replies: "Erweitert" button not functional (thanks @jacobinsocial and @ivanminutillo)  
+- 🐛 Replies: not possible to delete own posts (thanks @jacobinsocial and @ivanminutillo)  
+- 🐛 Replies: error when marking someone else's reply as answer (thanks @jacobinsocial and @ivanminutillo)  
+- 🐛 Replies: focus not auto-placed in reply box after clicking reply (thanks @jacobinsocial and @ivanminutillo)  
+- 🐛 New profile: @handle auto-filled from pseudonym when deleting, making full deletion impossible (thanks @jacobinsocial and @ivanminutillo)  
+- 🐛 New profile: two error messages on invalid handle, transient one disappearing immediately (thanks @jacobinsocial and @ivanminutillo)  
+- 🐛 Tutorial: "follow 5 people" step not auto-resolving after completion (thanks @jacobinsocial and @ivanminutillo)  
+- 🐛 Flags: filter in "My Flags" section not functional (thanks @jacobinsocial and @ivanminutillo)  
+- 🐛 Dashboard Widgets: "Haupt" and "Seite" displayed as two separate words due to i18n layout issue (thanks @jacobinsocial and @ivanminutillo)  
+- 🐛 Boost icon missing tooltip on hover (thanks @jacobinsocial and @ivanminutillo)  
+- 🐛 Local feed shown even when federation is disabled (thanks @jacobinsocial and @ivanminutillo)  
+- 🐛 Bug [\#1965](https://github.com/bonfire-networks/bonfire-app/issues/1965) (thanks @ivanminutillo)  
+- 🐛 theme preview/enable buttons overflow [\#1956](https://github.com/bonfire-networks/bonfire-app/issues/1956) (thanks @ruzko and @ivanminutillo)  
+- 🐛 Clicking on "copy post link" just reloads the page and does not copy the link [\#1951](https://github.com/bonfire-networks/bonfire-app/issues/1951) (thanks @xplosionmind and @ivanminutillo)  
+- 🐛 Applying content warnings on mobile web is broken [\#1936](https://github.com/bonfire-networks/bonfire-app/issues/1936) (thanks @LiquidParasyte and @ivanminutillo)  
+- 🐛 confim button in delete user modal doesn't work [\#1931](https://github.com/bonfire-networks/bonfire-app/issues/1931) (thanks @mayel and @ivanminutillo)  
+- 🐛 Having a feed open shouldn't trigger browser notifications when new activities are sent over the websocket [\#1709](https://github.com/bonfire-networks/bonfire-app/issues/1709) (thanks @mayel and @ivanminutillo)  
+- 🐛 \[Bug\]: after a keyword search, additional filters return an error [\#36](https://github.com/bonfire-networks/federated_archives/issues/36) (thanks @ivanminutillo)
+
+
+## Bonfire Social [1.0.2 (2026-03-17)]
+
+### What's new
+
+**Keyword filtering**: You can now filter out posts containing specific words, phrases, or hashtags. Useful for tuning out topics you'd rather not see. Instance admins can set filters that apply across the whole instance, and per-user filtering is coming in a future release.
+
+**Translate posts** with one click: A translate button now appears under posts, making it easy to read content written in other languages. Translation works locally in Chrome out of the box; instance admins or individual users can also set up LibreTranslate or DeepL APIs for broader support (in translation extension settings).
+
+**Feed markers**: Your place in the feed is now saved when you navigate away, so you can pick up where you left off
+
+**New Dashboard widgets**: Weather, instance stats, and user summary now available for your customizable dashboard.
+
+
+### Added
+- ✨ New setting to control what appears above a reply in your feed: choose between showing the post being replied to, the original post that started the thread, or none [#1714](https://github.com/bonfire-networks/bonfire-app/issues/1714) [#1359](https://github.com/bonfire-networks/bonfire-app/issues/1359) (thanks @mayel and @ivanminutillo)
+- 📝 Your place in the feed is now saved when you navigate away, so you can pick up where you left off [#1835](https://github.com/bonfire-networks/bonfire-app/issues/1835) (thanks @ivanminutillo)
+- ✨ Press Cmd+Enter (or Ctrl+Enter on Windows/Linux) to publish a post without reaching for the button [#397](https://github.com/bonfire-networks/bonfire-app/issues/397) (thanks @ivanminutillo and @sefsh)
+- ✨ keyboard shortcuts (n for opening the composer, - for minimizing, cmd/ctrl + enter for publishing a post) (thanks @ivanminutillo)
+- ✨ New Dashboard Weather widget
+- 🚀 New Safety settings section
+You can now toggle widgets directly in dashboard page
+- 🚀 Location data and other hidden metadata are now automatically removed from photos you upload [#1794](https://github.com/bonfire-networks/bonfire-app/issues/1794) (thanks @mayel)
+- 🚧 Filter out posts containing specific keywords, configurable by instance admins and soon by individual users [#1001](https://github.com/bonfire-networks/bonfire-app/issues/1001) (thanks @mayel and @ivanminutillo)
+- ✨ Translate button on posts, so you can read content in other languages with one click (configure API keys for LibreTranslate or DeepL) [#1809](https://github.com/bonfire-networks/bonfire-app/issues/1809) (thanks @ivanminutillo)
+- ✨ Polls now show a preview before you vote, so you can see the options clearly [#1363](https://github.com/bonfire-networks/bonfire-app/issues/1363) (thanks @ivanminutillo)
+- ✨ ActivityPub: support for a newer, more robust standard for verifying messages between instances (RFC 9421 HTTP Message Signatures) [#1823](https://github.com/bonfire-networks/bonfire-app/issues/1823) [#1826](https://github.com/bonfire-networks/bonfire-app/issues/1826) [PR #9](https://github.com/bonfire-networks/activity_pub/pull/9) (thanks @dahlia and @mayel)
+- ✨ Federated events are now accessible via REST API, making them visible in supported mobile apps [#1772](https://github.com/bonfire-networks/bonfire-app/issues/1772) (thanks @mayel and @ivanminutillo)
+- ✨ Account Data & Defaults: surfaces relevant account info and highlights your safety defaults at a glance, including discoverability and search indexing settings (thanks @ivanminutillo and @mayel)
+- ✨ Instance Widget: overview of your instance's key defaults: federation behaviour, open vs invite-only registration, and known servers (thanks @ivanminutillo and @mayel)
+- ✨ Beyond preferred language, users can now specify other languages they understand, these appear in the Composer language dropdown (thanks @mayel and @ivanminutillo)
+- 🚧 Push notifications are now supported in the browser and in mobile apps [#1800](https://github.com/bonfire-networks/bonfire-app/issues/1800) (thanks @mayel)
+
+### Changed
+- 🚧 Improvements to ActivityPub Client to Server API (work in progress) [#917](https://github.com/bonfire-networks/bonfire-app/issues/917) (thanks @mayel)
+- 🚧 Improvements to Mastodon-compatible API (work in progress) [#916](https://github.com/bonfire-networks/bonfire-app/issues/916) (thanks @ivanminutillo and @mayel)
+- 🐛 When replying to a post with a content warning, the reply now inherits the content warning by default [#1805](https://github.com/bonfire-networks/bonfire-app/issues/1805) (thanks @btfreeorg and @ivanminutillo)
+- ✨ Read/unread status for messages and notifications is now tied to your account, staying consistent across all your profiles [#1775](https://github.com/bonfire-networks/bonfire-app/issues/1775) (thanks @mayel)
+- 🚀 Hashtags handling is improved [#1833](https://github.com/bonfire-networks/bonfire-app/issues/1833) (thanks @mayel and @LiquidParasyte)
+- 📝 Traditional Chinese (Taiwan) interface translation added [PR #1837](https://github.com/bonfire-networks/bonfire-app/pull/1837) (thanks @peticipate888)
+- 💅 doc/DEPLOY.md: Guix guide: Adapt for latest release. [PR #1768](https://github.com/bonfire-networks/bonfire-app/pull/1768) (thanks @fishinthecalculator)
+- ✨ Add tests for when uploading blocklists [#1832](https://github.com/bonfire-networks/bonfire-app/issues/1832) (thanks @ivanminutillo)
+- ✨ Add new CORS paths for openid and oauth token [PR #9](https://github.com/bonfire-networks/bonfire_ui_common/pull/9) (thanks @mediaformat)
+
+### Fixed
+- ✨ Improved Direct Messages UX/UI
+- ✨ Improved Extension settings UX/UI
+- ✨ Improved Composer UI on mobile
+- ✨ Improved ghosted/blocked/silenced UX/UI
+- ✨ Loading all posts from a remote user's profile was broken [#1785](https://github.com/bonfire-networks/bonfire-app/issues/1785) (thanks @ivanminutillo and @mayel)
+- ✨ fix toggling between linear and nested thread (thanks @ivanminutillo and @mayel)
+- ✨ fix deeply nested thread UI (thanks @ivanminutillo and @mayel)
+- ✨ Following someone incorrectly showed a notification saying you followed yourself [#1814](https://github.com/bonfire-networks/bonfire-app/issues/1814) (thanks @ivanminutillo)
+- ✨ Grouped notifications dont allow to see all the users grouped [#1682](https://github.com/bonfire-networks/bonfire-app/issues/1682) (thanks @ivanminutillo and @mayel)
+- 🚧 Quote posts accepted on Bonfire should now correctly appear as accepted in Mastodon [#1803](https://github.com/bonfire-networks/bonfire-app/issues/1803) (thanks @mayel and @btfreeorg)
+- 🐛 Clicking a post found via direct link now opens the full post correctly [#1779](https://github.com/bonfire-networks/bonfire-app/issues/1779) (thanks @btfreeorg and @ivanminutillo)
+- 🐛 Following someone from a remote instance no longer shows a 404 error page [#1434](https://github.com/bonfire-networks/bonfire-app/issues/1434) (thanks @GreenMan-Network and @mayel)
+- 📝 nitpick: Fix typo in DEPLOY.md for admin command [PR #1792](https://github.com/bonfire-networks/bonfire-app/pull/1792) (thanks @bailey-coding)
+- 📝 nitpick: Remove duplicate 'application/x-bzip2' from mime types [PR #3](https://github.com/bonfire-networks/bonfire_files/pull/3) (thanks @bailey-coding)
+- 💅 build/fix(vix): update vix-0.35.0 -> vix-0.38.0 [PR #1821](https://github.com/bonfire-networks/bonfire-app/pull/1821) (thanks @ju1m)
+- 🚀 maint/update(assets): fix yarn.lock [PR #10](https://github.com/bonfire-networks/bonfire_ui_common/pull/10) (thanks @ju1m)
+- 💅 Image alt text is now visible again in post previews [#1813](https://github.com/bonfire-networks/bonfire-app/issues/1813) (thanks @ivanminutillo)
+- 💅 Search result mentions no longer add a blank quote preview to the activity [#1760](https://github.com/bonfire-networks/bonfire-app/issues/1760) (thanks @ivanminutillo)
+- 📝 fix: use CLDR gettext_locale_name for correct Gettext locale mapping [PR #14](https://github.com/bonfire-networks/bonfire_common/pull/14) (thanks @peticipate888)
+- 🐛 Visiting a non-existent hashtag page no longer causes a crash [#1843](https://github.com/bonfire-networks/bonfire-app/issues/1843) (thanks @ivanminutillo and @mayel)
+- 🐛 Content warnings now correctly hide content inside link previews and quoted posts [#1840](https://github.com/bonfire-networks/bonfire-app/issues/1840) (thanks @LiquidParasyte and @mayel)
+- 🐛 Language settings for Traditional Chinese, Brazilian Portuguese, and similar locales now work correctly [#1838](https://github.com/bonfire-networks/bonfire-app/issues/1838) - [PR #14](https://github.com/bonfire-networks/bonfire-app/pull/14) (thanks @peticipate888 and @mayel)
+- 🐛 Sunrise and sunset times in the weather widget now display correctly [#1819](https://github.com/bonfire-networks/bonfire-app/issues/1819) (thanks @btfreeorg and @ivanminutillo)
+- 🐛 Content warnings no longer show raw HTML tags when viewed from Mastodon [#1804](https://github.com/bonfire-networks/bonfire-app/issues/1804) (thanks @wakest and @ivanminutillo)
+- 🐛 Navigation arrows on the mobile dashboard no longer overlap article titles [#1798](https://github.com/bonfire-networks/bonfire-app/issues/1798) (thanks @btfreeorg and @ivanminutillo)
+- 🐛 Context menus occasionally appeared behind other content instead of on top [#1778](https://github.com/bonfire-networks/bonfire-app/issues/1778) (thanks @btfreeorg and @ivanminutillo)
+- 🐛 Search results previews now load correctly [#1797](https://github.com/bonfire-networks/bonfire-app/issues/1797) (thanks @ivanminutillo)
+- 🐛 Opening a post no longer triggers a continuous page refresh loop [#1781](https://github.com/bonfire-networks/bonfire-app/issues/1781) (thanks @mayel and @ivanminutillo)
+- 🐛 Avatars in flat/non-threaded reply view now show the correct user [#1608](https://github.com/bonfire-networks/bonfire-app/issues/1608) (thanks @ccamara, @mayel, and @ivanminutillo)
+- 🐛 Default flavour config is no longer overridden by instance settings [#1604](https://github.com/bonfire-networks/bonfire-app/issues/1604) (thanks @mayel and @ivanminutillo)
+- 🐛 Avatars in the feed now load promptly instead of appearing with a noticeable delay [#1577](https://github.com/bonfire-networks/bonfire-app/issues/1577) (thanks @ivanminutillo)
+- 🐛 Polls from other instances no longer cause the original post to appear twice in the feed [#1440](https://github.com/bonfire-networks/bonfire-app/issues/1440) (thanks @GreenMan-Network, @mayel, and @ivanminutillo)
+- 🐛 Some Mobilizon profiles in search results were showing incorrect names [#1337](https://github.com/bonfire-networks/bonfire-app/issues/1337) (thanks @ivanminutillo and @mayel)
+- 📝 Forced dependency on OpenID [#2](https://github.com/bonfire-networks/bonfire_api_graphql/issues/2) - [PR #2155](https://github.com/bonfire-networks/bonfire_api_graphql/pull/2155) (thanks @ju1m and @mayel)
+
+
+## Bonfire Social [1.0.1 (2026-01-17)]
+
+### New features
+
+- **Follow hashtags**: Discover and join conversations that matter to you, bringing relevant posts into your feed without needing to follow specific people. *(Note: You'll see tagged posts known to your instance, for example, if someone on your server follows the author or boosted the post.)*
+- **Scheduled posts**: Plan ahead and have your posts published at just the right moment for your community.
+- **Language & translation**: Choose your preferred language(s), set a language for your posts, and translate content from other languages. *(Translation currently works in some Chromium-based browsers, using a local translation engine. Support for other browsers, using LibreTranslate or DeepL, is coming soon.)*
+- **Replies in feeds**: Choose what to display above a reply in your feeds: the direct parent post being replied to, the original post that started the thread, or just a label indicating that it is a reply. Set your preference in settings.
+- **Polls** _(work in progress)_: Ask questions and gather input from your community. You can now view and vote on remote polls, creating them locally is coming soon. 
+- **Mastodon-compatible API** _(work in progress)_: This will make it possible to interact with Bonfire through dozens of fediverse clients available on mobile and desktop. We're gradually adding support for more parts of the API and will be testing it with different third-party clients (please report any issues if you test it with your favourite app!).
+- **ActivityPub client-to-server (C2S) API** _(work in progress)_: Opening new possibilities for how you can interact with fediverse through third-party apps.
+- **Widgets**: Configure your homepage to display widgets highlighting what interests you most, rather than being dropped straight into a feed of activities. Head to "configure your dashboard" in settings to choose your widgets and switch between a composable widget layout or the standard "my following" feed. Reorder them by dragging and dropping directly on the dashboard (tip: you can also do that with navigation menu items on the left or widgets on the right of most screens).
+
+### Widgets
+
+<img src="https://bonfirenetworks.org/img/widgets.jpg" />
+
+Currently available widgets include:
+
+- **Trending links**: Discover the latest news and what's generating conversation across your instance.
+- **Recent articles**: Discover long-form content and blog posts from across your network.
+- **Suggested profiles**: Instance admins can curate recommendations to help newcomers find interesting people to follow.
+
+We’d love your feedback on which widgets you’d find most useful. [Let us know](https://github.com/bonfire-networks/bonfire-app/issues/1758) what you’d like to see on your dashboard. What would make Bonfire feel even more like home?
+ 
+### Performance
+
+- **Prioritised federation queues**: We now prioritise the processing of mentions and DMs over regular posts, so direct conversations arrive without delay.
+- **Database improvements**: Added more indexes and improved queries for snappier responses.
+- **Server-to-server federation**: Various optimisations for smoother communication between instances.
+
+### UI and UX enhancements
+
+We've put work into smoothing out the interface and improving design patterns across the app: small touches that add up to a better experience.
+
+### And more...
+
+This release squashes bugs around federation behaviour, threading, user interface, composer states, and more. See the below for the complete list.
+
+#### Added
+- ✨ schedule a post [#1669](https://github.com/bonfire-networks/bonfire-app/issues/1669) (thanks @mayel)
+- ✨ Curate a list of suggested profiles for an instance [#1668](https://github.com/bonfire-networks/bonfire-app/issues/1668) (thanks @mayel)
+- ✨ Follow Hashtags [#1640](https://github.com/bonfire-networks/bonfire-app/issues/1640) (thanks @dogrileycom, @mayel, and @ivanminutillo)
+- ✨ trending links widget [#1726](https://github.com/bonfire-networks/bonfire-app/issues/1726) (thanks @mayel and @ivanminutillo)
+- 🚧 Polls: Ask questions with possible choices, gather votes [#914](https://github.com/bonfire-networks/bonfire-app/issues/914) (thanks @ivanminutillo and @mayel)
+- ✨ configure my preferred language + set post language [#270](https://github.com/bonfire-networks/bonfire-app/issues/270) 
+- ✨ translation options for content not in a language I speak [#1033](https://github.com/bonfire-networks/bonfire-app/issues/1033) (thanks @mayel)
+- ✨ Choose which feed to display on homepage for guests [#1647](https://github.com/bonfire-networks/bonfire-app/issues/1647) (thanks @dogrileycom, @ivanminutillo, and @mayel)
+- 🚧 ActivityPub Client-to-Server (C2S) API (work in progress) [#917](https://github.com/bonfire-networks/bonfire-app/issues/917) (thanks @ivanminutillo and @mayel)
+- 🚧 Mastodon-compatible API (work in progress) [#916](https://github.com/bonfire-networks/bonfire-app/issues/916) (thanks @ivanminutillo and @mayel)
+
+#### Changed
+- ⚡ prioritise the processing (in seperate federation queue) of incoming @ mentions and DMs [#1658](https://github.com/bonfire-networks/bonfire-app/issues/1658) (thanks @mayel)
+- ✨ add likes toggle to feed filters [#1722](https://github.com/bonfire-networks/bonfire-app/issues/1722) (thanks @mayel)
+- 📝 improve list of circles/people to pick when creating a boundary preset [#1297](https://github.com/bonfire-networks/bonfire-app/issues/1297) (thanks @ivanminutillo and @mayel)
+- 📝 easier way to see which instances I've blocked (as an admin or a user) [#1630](https://github.com/bonfire-networks/bonfire-app/issues/1630) (thanks @jonpincus, @mayel, and @ivanminutillo)
+- 📝 Show loading indicator during search operations [#1212](https://github.com/bonfire-networks/bonfire-app/issues/1212) (thanks @ivanminutillo and @mayel)
+- 📝 Replying to a comment within a thread should not include all the thread participants by default, instead of just the ones included in the post i'm replying to [#1615](https://github.com/bonfire-networks/bonfire-app/issues/1615) (thanks @ivanminutillo and @mayel)
+- 💅 instance permissions should show all verbs [#1611](https://github.com/bonfire-networks/bonfire-app/issues/1611) (thanks @mayel)
+- 📝 when adding a moderator via instance settings, it should autocomplete only with local users [#1610](https://github.com/bonfire-networks/bonfire-app/issues/1610) (thanks @mayel)
+- 🚀 add missing ecto indexes [#1588](https://github.com/bonfire-networks/bonfire-app/issues/1588) (thanks @ivanminutillo and @mayel)
+- 💅 Article preview in feed shows all the links included in the article with previews, leading to a confusing UX [#1578](https://github.com/bonfire-networks/bonfire-app/issues/1578) (thanks @ivanminutillo and @mayel)
+- 📝 Upgrade Hammer integration [#1522](https://github.com/bonfire-networks/bonfire-app/issues/1522) (thanks @mayel)
+- 🚀 remove phx-update="append" which is not longer supported in LV [#1492](https://github.com/bonfire-networks/bonfire-app/issues/1492) (thanks @mayel and @ivanminutillo)
+- ⚡ optimise / short circuit incoming Delete activities for unknown remote objects/actors [#850](https://github.com/bonfire-networks/bonfire-app/issues/850) (thanks @mayel)
+- 🚧 MacOS Dev Setup Incompatibility [#1670](https://github.com/bonfire-networks/bonfire-app/issues/1670) (thanks @mayel and @harveypitt)
+- 🐛 Flags should not be automatically sent to remote instances as reports [#1626](https://github.com/bonfire-networks/bonfire-app/issues/1626) (thanks @jonpincus and @mayel)
+- 🚀 updated [docs](https://docs.bonfirenetworks.org/readme.html)
+- 🔧 Settings: order of widgets on dashboard [#935](https://github.com/bonfire-networks/bonfire-app/issues/935) (thanks @mayel and @ivanminutillo)
+- 🚧 replace milisecond numbers or calculations with `to_timeout` [#1729](https://github.com/bonfire-networks/bonfire-app/issues/1729) (thanks @vishakha1411 and @mayel)
+
+#### Fixed
+- 📝 when i reply to a remote post, the boundary default to local [#1687](https://github.com/bonfire-networks/bonfire-app/issues/1687) (thanks @ivanminutillo)
+- 📝 when i minimize the composer that contains a reply, the reply_to disappear [#1686](https://github.com/bonfire-networks/bonfire-app/issues/1686) (thanks @ivanminutillo)
+- 📝 fix(app pages): useless closing div tag breaking layout [PR #7](https://github.com/bonfire-networks/website-blog/pull/7) (thanks @Spratch)
+- 📝 Boost icon does not darken after boost. [#1642](https://github.com/bonfire-networks/bonfire-app/issues/1642) (thanks @mayel and @ivanminutillo)
+- 📝 Accept Follow activities should not have cc: Public [#1712](https://github.com/bonfire-networks/bonfire-app/issues/1712) (thanks @ivanminutillo)
+- 🚧 MacOS Dev Setup Incompatibility [#1670](https://github.com/bonfire-networks/bonfire-app/issues/1670) [PR #1672](https://github.com/bonfire-networks/bonfire-app/pull/1672) (thanks @mayel and @harveypitt)
+- 📝 quote button doesn't open compose modal [#1609](https://github.com/bonfire-networks/bonfire-app/issues/1609) (thanks @mayel and @ivanminutillo)
+- 📝 Remote follow remains stucked in requested even for auto-followable users [#1695](https://github.com/bonfire-networks/bonfire-app/issues/1695) (thanks @ivanminutillo and @mayel)
+- 🐛 Creating a circle from Peertube followers has multiple issues. [#1716](https://github.com/bonfire-networks/bonfire-app/issues/1716) (thanks @ozonedGH)
+- 🐛 When creating a client with openid, bonfire_open_id appears to be concatenating the instance name with the app name. The redirect_uri being passed seems malformed [#1692](https://github.com/bonfire-networks/bonfire-app/issues/1692) (thanks @ivanminutillo and @mayel)
+- 🐛 typo: cdlr.ex => cldr.ex [#1676](https://github.com/bonfire-networks/bonfire-app/issues/1676) - [PR #1812](https://github.com/bonfire-networks/bonfire-app/pull/1812) (thanks @ju1m)
+- 🐛 RuntimeError occurs during user signup when the undiscoverable flag is set to true [#1671](https://github.com/bonfire-networks/bonfire-app/issues/1671) (thanks @harveypitt and @mayel)
+- 🐛 pinned ranch is too old to support Unix socket permissions [#1667](https://github.com/bonfire-networks/bonfire-app/issues/1667) - [PR #1871](https://github.com/bonfire-networks/bonfire-app/pull/1871), [PR #1812](https://github.com/bonfire-networks/bonfire-app/pull/1812) (thanks @ju1m and @mayel)
+- 🐛 Feed Image Display of Photos [#1654](https://github.com/bonfire-networks/bonfire-app/issues/1654) (thanks @dogrileycom and @ivanminutillo)
+- 🐛 module Bonfire.RuntimeConfig is not available [#1651](https://github.com/bonfire-networks/bonfire-app/issues/1651) - [PR #1652](https://github.com/bonfire-networks/bonfire-app/pull/1652), [PR #1812](https://github.com/bonfire-networks/bonfire-app/pull/1812) (thanks @ju1m and @mayel)
+- 🐛 After posting sensitive the next post input has sensitive and title still turned on [#1646](https://github.com/bonfire-networks/bonfire-app/issues/1646) (thanks @mayel and @ivanminutillo)
+- 🐛 UX/UX issues [#1641](https://github.com/bonfire-networks/bonfire-app/issues/1641) (thanks @dogrileycom and @mayel)
+- 🐛 bonfire-app always loads appsignal's closed-source agent [#1637](https://github.com/bonfire-networks/bonfire-app/issues/1637) - [PR #1812](https://github.com/bonfire-networks/bonfire-app/pull/1812) (thanks @ju1m and @mayel)
+- 🐛 Editing a post shows encoded HTML [#1635](https://github.com/bonfire-networks/bonfire-app/issues/1635) (thanks @jonpincus and @mayel)
+- 🐛 Updated avatar image doesn't show up in the compose box until I hit refresh [#1634](https://github.com/bonfire-networks/bonfire-app/issues/1634) (thanks @jonpincus, @mayel, and @ivanminutillo)
+- 🐛 Error when setting up first user [#1620](https://github.com/bonfire-networks/bonfire-app/issues/1620) (thanks @timorl and @mayel)
+- 🐛 A mention-only reply in mastodon has boost verb enabled on a bonfire instance [#1616](https://github.com/bonfire-networks/bonfire-app/issues/1616) (thanks @ivanminutillo and @mayel)
+- 🐛 In some cases links in posts are not linkified [#1614](https://github.com/bonfire-networks/bonfire-app/issues/1614) (thanks @mayel and @ivanminutillo)
+- 🐛 load more wont show new items if there are also new activities incoming [#1603](https://github.com/bonfire-networks/bonfire-app/issues/1603) (thanks @ivanminutillo)
+- 🐛 clicking 'refresh' when looking at *user* federation status as an admin shows instance federation status [#1601](https://github.com/bonfire-networks/bonfire-app/issues/1601) (thanks @mayel)
+- 🐛 Slow response after liking an activity [#1589](https://github.com/bonfire-networks/bonfire-app/issues/1589) (thanks @ivanminutillo)
+- 🐛 Wrong subject shown in composer when replying to a boosted post [#1572](https://github.com/bonfire-networks/bonfire-app/issues/1572) (thanks @ivanminutillo and @mayel)
+- 🐛 minor: compose window emoji obstructed [#1570](https://github.com/bonfire-networks/bonfire-app/issues/1570) (thanks @gillesdutilh and @ivanminutillo)
+- 🐛 Inconsistent behaviours when applying more than 1 filter in feed. [#1514](https://github.com/bonfire-networks/bonfire-app/issues/1514) (thanks @ivanminutillo and @mayel)
+- 🐛 when adding someone to a shared user profile, usernames should be recognise with or without including @ [#1296](https://github.com/bonfire-networks/bonfire-app/issues/1296) (thanks @mayel and @ivanminutillo)
+- 🐛 Pagination resets feed instead of loading older activities when removing time limit [#1285](https://github.com/bonfire-networks/bonfire-app/issues/1285) (thanks @ivanminutillo and @mayel)
+- 🐛 locking a thread still allows replying to replies wihin it [#1084](https://github.com/bonfire-networks/bonfire-app/issues/1084) (thanks @mayel)
+- 🐛 module Bonfire.RuntimeConfig is not available [PR #1652](https://github.com/bonfire-networks/bonfire-app/pull/1652) (thanks @ju1m)
+- 🐛 Heroicons v1 deprecated - v2 support needed [#22](https://github.com/bonfire-networks/iconify_ex/issues/22) - [PR #21](https://github.com/bonfire-networks/iconify_ex/pull/21) (thanks @neilberkman and @mayel)
+- 🐛 when i minimize the composer that includes a reply_to, the replied activities disappears [#1576](https://github.com/bonfire-networks/bonfire-app/issues/1576) (thanks @ivanminutillo)
+- 💅 Tooltips close unexpectedly during LiveView updates [#1756](https://github.com/bonfire-networks/bonfire-app/issues/1756) (thanks @ivanminutillo)
+- 💅 UX: Tooltip outside-click triggers unintended actions [#1755](https://github.com/bonfire-networks/bonfire-app/issues/1755) (thanks @ivanminutillo)
+- 📝 mention a local user in the composer is not translated in an actual mention once the post is published [#1753](https://github.com/bonfire-networks/bonfire-app/issues/1753) (thanks @ivanminutillo and @mayel)
+- 🐛 Preview Themes goes off Screen [#1746](https://github.com/bonfire-networks/bonfire-app/issues/1746) (thanks @btfreeorg and @ivanminutillo)
+- 🐛 Remove erroneous error message when a flash message auto-closes [#1708](https://github.com/bonfire-networks/bonfire-app/issues/1708) (thanks @mayel and @ivanminutillo)
+
+
+
+## Bonfire Social [1.0 (2025-11-7)]
+
+### Added
+- ✨ docs/DEPLOY.md: Add Guix hosting guide. [PR #1585](https://github.com/bonfire-networks/bonfire-app/pull/1585) (thanks @fishinthecalculator)
+- ✨ add postgres autotune [`137ef37`](https://github.com/bonfire-networks/bonfire-app/commit/137ef37b1900f719cfc5cdf15f5f1a2595b9f4e4) (thanks @mayel)
+- 💅 Consent-based quoting of posts (showing a preview in feeds/threads) [#1535](https://github.com/bonfire-networks/bonfire-app/issues/1535) (thanks @mayel)
+
+### Changed
+- 📝 reply activity in composer overflowed wrongly [#1580](https://github.com/bonfire-networks/bonfire-app/issues/1580) (thanks @ivanminutillo)
+- 📝 on closing compose window: confusing button name "cancel" [#1571](https://github.com/bonfire-networks/bonfire-app/issues/1571) (thanks @gillesdutilh and @ivanminutillo)
+- 📝 sometime remote threads and posts are orphans [#1232](https://github.com/bonfire-networks/bonfire-app/issues/1232) (thanks @ivanminutillo and @mayel)
+- 🚀 make sure replies from Masto appear in the correct thread rather than as a detached reply [#1200](https://github.com/bonfire-networks/bonfire-app/issues/1200) (thanks @mayel)
+- 📝 moved auto conf file outside postgres data folder [PR #1619](https://github.com/bonfire-networks/bonfire-app/pull/1619) (thanks @MarekBenjamin)
+- 📝 .envrc: Update default Docker setting. [PR #1602](https://github.com/bonfire-networks/bonfire-app/pull/1602) (thanks @fishinthecalculator)
+- 🚀 Update build scripts to be more broadly compatible [PR #1](https://github.com/bonfire-networks/ember/pull/1) (thanks @fishinthecalculator)
+- 📝 .envrc: Update default Docker setting. [`3f34141`](https://github.com/bonfire-networks/bonfire-app/commit/3f34141127bc9837422e3d17c09a8a2d5cf69355) (thanks @fishinthecalculator)
+- 🚧 investigate all n+1 warnings throughout the app [#1581](https://github.com/bonfire-networks/bonfire-app/issues/1581) [`4dd2e5e`](https://github.com/bonfire-networks/bonfire-app/commit/4dd2e5e68626d6ca5857005124489f9403d3cce8) (thanks @mayel)
+- 🚧 Investigate missing ecto indexes [#1588](https://github.com/bonfire-networks/bonfire-app/issues/1588)  (thanks @mayel and @ivanminutillo)
+- 📝 moved auto conf file outside postgres data folder [`40aafd9`](https://github.com/bonfire-networks/bonfire-app/commit/40aafd918d05d703822aeb52dd8df316d0099366) (thanks @MarekBenjamin)
+- ✅ test deletion flows manually with mastodon [#780](https://github.com/bonfire-networks/bonfire-app/issues/780) (thanks @mayel)
+
+### Fixed
+- 🐛 Duplicate ID "Bonfire-UI-Social-Graph-FollowButtonLive_Bonfire-UI-Me-WidgetUsersLive_for_01K947MF9W3JAVW5NQ0P13C7QE" for component Bonfire.UI.Social.Graph.FollowButtonLive when rendering template [#1618](https://github.com/bonfire-networks/bonfire-app/issues/1618) (thanks @rzylber and @mayel)
+- 🐛 Cannot register first user [#1617](https://github.com/bonfire-networks/bonfire-app/issues/1617) (thanks @timorl and @mayel)
+- 🐛 Notifications are not marked as read [#1613](https://github.com/bonfire-networks/bonfire-app/issues/1613) (thanks @ccamara and @mayel)
+- 🐛 Cannot approve follower requests [#1612](https://github.com/bonfire-networks/bonfire-app/issues/1612) (thanks @ccamara and @mayel)
+- 🐛 Federation with Iceshrimp.NET (and likely all other JSON-LD processing remotes) are broken [#1597](https://github.com/bonfire-networks/bonfire-app/issues/1597) (thanks @wont-work and @mayel)
+- 🐛 Crash: Switching themes leads to crash and stuck/default theme [#1595](https://github.com/bonfire-networks/bonfire-app/issues/1595) (thanks @ltning, @daehee, and @ivanminutillo)
+- 🐛 Infinite loop on article feed [#1587](https://github.com/bonfire-networks/bonfire-app/issues/1587) (thanks @ivanminutillo)
+- 🐛 When including mentions through a reply, need to add a space after last one [#1573](https://github.com/bonfire-networks/bonfire-app/issues/1573) (thanks @ivanminutillo)
+- 🐛 Bug: dependency on elixir 1.17.3 doesn't work [#1352](https://github.com/bonfire-networks/bonfire-app/issues/1352) (thanks @vincib and @mayel)
+- 🐛 group actors (such as from mobilizon) profile sometimes showing current user's activities [#1294](https://github.com/bonfire-networks/bonfire-app/issues/1294) (thanks @mayel)
+- 🐛 seems some remote posts are being duplicated [#1219](https://github.com/bonfire-networks/bonfire-app/issues/1219) (thanks @mayel)
+- 🐛 investigate send_update failed because component Bonfire.UI.Reactions.BoostActionLive [#1192](https://github.com/bonfire-networks/bonfire-app/issues/1192) (thanks @ivanminutillo)
+- 🐛 error: "** (UndefinedFunctionError) function Phoenix.ConnTest.get/3 is undefined or private [#962](https://github.com/bonfire-networks/bonfire-app/issues/962) (thanks @ivanminutillo)
+- 🐛 got ERROR REPORT several times before being able to startup the instance when --force deploying with abra [#953](https://github.com/bonfire-networks/bonfire-app/issues/953) (thanks @ivanminutillo)
+- 🐛 evision_windows_fix:run_once/0 is undefined [#950](https://github.com/bonfire-networks/bonfire-app/issues/950) (thanks @ivanminutillo)
+- 🐛 Fix open science link in readme [PR #1622](https://github.com/bonfire-networks/bonfire-app/pull/1622) (thanks @MegaKeegMan)
+- 🐛 Fix link for Open Science repository in README [`b9d48ec`](https://github.com/bonfire-networks/bonfire-app/commit/b9d48ec32a597cad9f33b515c121bf9a34a604ed) (thanks @ivanminutillo)
+- ✨ Convert break-all containers (in composer and in user hero profile) for better readability [#1574](https://github.com/bonfire-networks/bonfire-app/issues/1574) (thanks @ivanminutillo)
+- ✨ Fix the workflow to add themes to a flavor [#1425](https://github.com/bonfire-networks/bonfire-app/issues/1425) (thanks @ivanminutillo)
+
+
+## Bonfire Social [1.0-rc.3 (2025-10-2)]
+
+### ✨ What’s new and improved?
+
+- **Consent-based quoting (FEP-044f):** Bonfire now supports consent-based quoting, introduced through the new ActivityPub extension [FEP-044f](https://codeberg.org/fediverse/fep/src/branch/main/fep/044f/fep-044f.md). With this first iteration released alongside Mastodon’s, it marks an important step toward making quoting work smoothly — and respectfully — across the fediverse.
+
+![quote](https://hackmd.io/_uploads/BJrbEX_hll.png)
+
+With Bonfire, you can now:
+- Use boundaries to define who can quote your post, who must request first, or who cannot request at all.
+- Quote — or request consent to quote — someone else’s post.
+- Give or withdraw consent at any time.
+
+![quote2](https://hackmd.io/_uploads/BkVVEQuhgg.jpg)
+
+- **Import your old posts when moving instances:** You can now bring your posts (and optionally their replies) with you when moving to Bonfire from another instance. Imported posts keep their original dates and links, and are added to your timeline in the right order, so your history looks complete. Replies and threads are preserved, as are like/boost counts. This works by automatically "boosting" your old posts (but without flooding people's feeds or notifications with old activities).
+
+- **Other data portability improvements:** Instance migration is now more robust. In addition to follows, blocks, and posts, you can now export and import circles/lists, bookmarks, likes, and boosts. A dedicated dashboard helps you follow the progress of data imports and migrations, so you always know what's happening with your data.
+
+- **Federation status dashboard:** Similarly, you can now easily track your outgoing and incoming federated activities with a new dashboard, making it simpler to monitor federation health and troubleshoot issues.
+
+![fedstatus](https://hackmd.io/_uploads/B17TH7_nel.jpg)
+
+- **RSS/Atom feeds:** Access your data beyond the fediverse: Subscribe to Bonfire feeds via your preferred RSS/Atom client. You can subscribe to specific users or to a feed of your choice, including bookmarks, likes, etc, all available as RSS.
+
+- **Boundary UI & usability improvements:** Boundaries (who can see or interact with your posts) are now easier to use. For example, you can share a post publicly but limit who can reply or quote it. Bonfire’s boundaries now also connect with GoToSocial’s interaction controls and Mastodon's quote authorisations, making them more interoperable across the fediverse. We also drafted a guide about [how you can start using circles and boundaries](https://docs.bonfirenetworks.org/boundaries.html) (feedback welcome!)
+
+![boundary](https://hackmd.io/_uploads/ByzTmMnhel.jpg)
+
+- **Mobile web app improvements**: The progressive web app experience has been refined with UI and UX enhancements that make Bonfire feel more native on mobile devices. Whether you're installing Bonfire to your home screen or using it directly in your mobile browser, the interface now responds more smoothly and adapts better to different screen sizes.
+
+![pwa](https://hackmd.io/_uploads/HyXfo29nll.jpg)
+
+- **Links in posts:** Remote posts now get the same rich URL previews as local ones.
+
+- **Single sign-on**: Bonfire supports OpenID Connect and OAuth2 authentication, allowing instance administrators to configure their preferred identity providers for login and signup. We've tested integration with GitHub, ORCID, Zenodo, and more, making it easier for communities to align authentication with their existing workflows and trust networks. Each instance can define which providers to enable and whether to allow new signups through SSO, giving administrators flexibility in how their communities access Bonfire. Bonfire can also act as an SSO provider itself, so other applications can authenticate users through your instance.  
+
+- **Federation interoperability guide:** Published [interoperability docs](https://docs.bonfirenetworks.org/federation-interoperability.html) to ensure compatibility with other ActivityPub software.
+
+- **User guides:** [New guides](https://docs.bonfirenetworks.org/user-guides.html) and documentation help you get started and make the most of Bonfire's features, whether you're new to the fediverse or exploring advanced capabilities like boundaries and circles. This is a work in progress, so feedback on how things would be better explained or what's missing would be very helpful! These guides are designed to help you understand, use, and configure Bonfire. 
+
+For a full list of changes, see the changelog below.
+
+### Added
+- ✨ Consent-based quoting of posts (showing a preview in feeds/threads) [#1535](https://github.com/bonfire-networks/bonfire-app/issues/1535) (thanks @mayel and @ivanminutillo)
+- 🌏 Federate info about interaction policies based on the boundaries of an object [#979](https://github.com/bonfire-networks/bonfire-app/issues/979) (thanks @mayel)
+- ✨ add migration of user's activities (such as posts) when moving instance [#1528](https://github.com/bonfire-networks/bonfire-app/issues/1528) (thanks @mayel)
+- ✨ fetch replies when importing posts during instance migration [#1534](https://github.com/bonfire-networks/bonfire-app/issues/1534) (thanks @mayel)
+- ✨ add export/import for circles/lists [#1508](https://github.com/bonfire-networks/bonfire-app/issues/1508) (thanks @mayel)
+- ✨ add export/import for bookmarks [#1507](https://github.com/bonfire-networks/bonfire-app/issues/1507) (thanks @mayel)
+- ✨ export/import likes & boosts [#1532](https://github.com/bonfire-networks/bonfire-app/issues/1532) (thanks @mayel)
+- ✨ UI to view the federation processing queue [#1037](https://github.com/bonfire-networks/bonfire-app/issues/1037) (thanks @mayel)
+- 📝 status page to view outgoing and incoming federated activities [#1548](https://github.com/bonfire-networks/bonfire-app/issues/1548) (thanks @mayel)
+- ✨ buttons & modal to subscribe to RSS/Atom feeds [#1501](https://github.com/bonfire-networks/bonfire-app/issues/1501) (thanks @mayel)
+- ✨ buttons & modal to download markdown for posts [#1502](https://github.com/bonfire-networks/bonfire-app/issues/1502) (thanks @mayel)
+- ✨ support bridging using BridgyFed [#1476](https://github.com/bonfire-networks/bonfire-app/issues/1476) (thanks @mayel)
+- ✨ add loading indicator that handles both local/federated search results [#1443](https://github.com/bonfire-networks/bonfire-app/issues/1443) (thanks @ivanminutillo)
+- ✨ generate URL previews for remote (federated) posts, like we do for local posts [#1291](https://github.com/bonfire-networks/bonfire-app/issues/1291) (thanks @ivanminutillo and @mayel)
+- ✨ Add a view to see the status of profile migrations [#1366](https://github.com/bonfire-networks/bonfire-app/issues/1366) (thanks @mayel and @ivanminutillo)
+- ✨ Add a visual indicator during large uploads [#1433](https://github.com/bonfire-networks/bonfire-app/issues/1433) (thanks @GreenMan-Network and @mayel)
+- 🚧 add user guides & docs [#1530](https://github.com/bonfire-networks/bonfire-app/issues/1530) (thanks @mayel)
+- ✨ It would be nice if the media gallery had swipe-between on photos and right-left keypad on desktop [#1424](https://github.com/bonfire-networks/bonfire-app/issues/1424) (thanks @ivanminutillo and @mayel)
+- ✨ add a setting to change units (eg for wheather) [#1518](https://github.com/bonfire-networks/bonfire-app/issues/1518) (thanks @mayel)
+
+### Changed
+- 🚀 improve UX for customising permissions when posting, editing, or defining a boundary (toggling verbs rather than roles) [#1553](https://github.com/bonfire-networks/bonfire-app/issues/1553) (thanks @mayel)
+- 💅 UX enhancement: Show the full handle w/ domain plus a “Copy” button in profile [#1537](https://github.com/bonfire-networks/bonfire-app/issues/1537) (thanks @ivanminutillo)
+- ✨ merge multiple reactions (likes/boosts) to the same post in notifications feed [#1454](https://github.com/bonfire-networks/bonfire-app/issues/1454) (thanks @mayel)
+- 🚀 Default Custom feeds enhancement [#1529](https://github.com/bonfire-networks/bonfire-app/issues/1529) (thanks @ivanminutillo and @mayel)
+- 🚀 create integration tests for OpenID and OAuth [#1487](https://github.com/bonfire-networks/bonfire-app/issues/1487) (thanks @mayel)
+- ✨ support sign up with openid/oauth providers who don't provide the user's email address [#1017](https://github.com/bonfire-networks/bonfire-app/issues/1017) (thanks @mayel)
+- 🚀 improve feed filters UX [#1431](https://github.com/bonfire-networks/bonfire-app/issues/1431) (thanks @ivanminutillo)
+- 🚀 handle activities addressed to a as:public collection [#1430](https://github.com/bonfire-networks/bonfire-app/issues/1430) (thanks @mayel)
+- 🚀 improve display of multiple audio attachments [#1422](https://github.com/bonfire-networks/bonfire-app/issues/1422) (thanks @mayel and @ivanminutillo)
+- ✨ add tests for profile migrations [#1503](https://github.com/bonfire-networks/bonfire-app/issues/1503) (thanks @mayel)
+- 🚀 add tests for data import and export [#1322](https://github.com/bonfire-networks/bonfire-app/issues/1322) (thanks @mayel)
+- 📝 hide instances from the admin's list of instance-wide circles? [#884](https://github.com/bonfire-networks/bonfire-app/issues/884) (thanks @mayel and @ivanminutillo)
+- 📝 optimise text/html processing [`55b8995`](https://github.com/bonfire-networks/bonfire-app/commit/55b89959c4f4f3e577db97ae19a924ce66911ecd), [`0ee1f86`](https://github.com/bonfire-networks/activity_pub/commit/0ee1f8644a03f41ee2dfcd813f9c8334c731874c) (thanks @mayel)
+- 🚧 add tests to verify custom emoji interop [#1472](https://github.com/bonfire-networks/bonfire-app/issues/1472) (thanks @mayel)
+- 🚀 better `just secrets` command [`02de529`](https://github.com/bonfire-networks/bonfire-app/commit/02de529d1d2c8b3cc1f5e634445ba207dd61d6e8) (thanks @mayel)
+- 📝 quote the argument to echo [PR #1543](https://github.com/bonfire-networks/bonfire-app/pull/1543) (thanks @uhoreg)
+- ✨ Allow reading meilisearch master key secret from file. [PR #1](https://github.com/bonfire-networks/bonfire_search/pull/1) (thanks @fishinthecalculator)
+- 🚧 Write some guides and tutorials [#779](https://github.com/bonfire-networks/bonfire-app/issues/779) (thanks @mayel)
+- 🚧 publish more exhausive docs for install with coopcloud [#1512](https://github.com/bonfire-networks/bonfire-app/issues/1512) (thanks @mayel)
+- 📝 upgrade phoenix and liveview [`a8355b5`](https://github.com/bonfire-networks/bonfire-app/commit/a8355b52b6bc6ef77dd6e61f6c8e0e1e954cfc62) (thanks @mayel)
+
+### Fixed
+- 🐛 fix instance icon/banner uploaded to s3 [#1536](https://github.com/bonfire-networks/bonfire-app/issues/1536) (thanks @mayel)
+- 🐛 Hashtag search is not working with Meilisearch backend [#1497](https://github.com/bonfire-networks/bonfire-app/issues/1497) (thanks @GreenMan-Network and @mayel)
+- 🐛 Article feed is not loading, looping behavior appears [#1496](https://github.com/bonfire-networks/bonfire-app/issues/1496) (thanks @jeffsikes and @mayel)
+- 🐛 Bonfire Social 1.0 RC2 blog post issues [#1469](https://github.com/bonfire-networks/bonfire-app/issues/1469) (thanks @ElectricTea and @mayel)
+- 🐛 Notifications never stop Notificationing (after being checked) [#1466](https://github.com/bonfire-networks/bonfire-app/issues/1466) (thanks @ZELFs and @mayel)
+- 🐛 activities in all feeds dont follow the chronological order anymore (even when it is set in the config) [#1463](https://github.com/bonfire-networks/bonfire-app/issues/1463) (thanks @ivanminutillo and @mayel)
+- 🐛 Investigate why mentions sometimes are converted in mailto link [#1457](https://github.com/bonfire-networks/bonfire-app/issues/1457) (thanks @ivanminutillo and @mayel)
+- 🐛 Get Latest Replies not working [#1451](https://github.com/bonfire-networks/bonfire-app/issues/1451) (thanks @jeffsikes and @mayel)
+- 🐛 Possibility to have duplicate feed names messes with interface (non-critical) [#1450](https://github.com/bonfire-networks/bonfire-app/issues/1450) (thanks @gillesdutilh and @ivanminutillo)
+- 🐛 Remote & only filter is not applied in feed [#1432](https://github.com/bonfire-networks/bonfire-app/issues/1432) (thanks @ivanminutillo)
+- 🐛 make sure pubsub works on notifications feed [#1427](https://github.com/bonfire-networks/bonfire-app/issues/1427) (thanks @mayel and @ivanminutillo)
+- 🐛 Properly render GIFs in media preview [#1426](https://github.com/bonfire-networks/bonfire-app/issues/1426) (thanks @ivanminutillo)
+- 🐛 "Read more" button is always shown on activities when viewign the feed as guest [#1423](https://github.com/bonfire-networks/bonfire-app/issues/1423) (thanks @ivanminutillo)
+- 🐛 When a user boosts its own post, the subject is not shown (the subject minimal is shown correctly instead) [#1397](https://github.com/bonfire-networks/bonfire-app/issues/1397) (thanks @ivanminutillo and @mayel)
+- 🐛 Following/followers are showing only local users ? [#1374](https://github.com/bonfire-networks/bonfire-app/issues/1374) (thanks @ivanminutillo and @mayel)
+- 🐛 The character username of a boosted activity has wrong link attached [#1370](https://github.com/bonfire-networks/bonfire-app/issues/1370) (thanks @ivanminutillo, @mayel, and @WildPowerHammer)
+- 🐛 avatar images not showing up in search [#1362](https://github.com/bonfire-networks/bonfire-app/issues/1362) (thanks @ivanminutillo and @mayel)
+- 🐛 "Load more" to expand a log post is not working anymore in feeds [#1302](https://github.com/bonfire-networks/bonfire-app/issues/1302) (thanks @ivanminutillo and @mayel)
+- 🐛 Fix markdown on release canidate notice in readme [PR #1494](https://github.com/bonfire-networks/bonfire-app/pull/1494) (thanks @ElectricTea)
+- 🐛 fix for Caddy v2 [`861b1ca`](https://github.com/bonfire-networks/bonfire-app/commit/861b1ca6f5b2db54abfc2d989c25e576a6c9067b) (thanks @mayel)
+
+
+## Bonfire Social [1.0-rc.2 (2025-07-08)]
+
+### ✨ What’s new and improved?
+
+- **Long-form publishing:** Going beyond beyond short posts to [read and write in-depth articles](https://bonfire.cafe/post/01JYRX7HCGME693BGCZF6AGGK1), ideal for essays, announcements, or detailed content. Article feeds are now available for RSS readers.
+- **Smarter feeds:** New feed options for **events**, **books**, and **articles** help you discover what matters to you most. You can now also filter out your own activities from your feeds when desired.
+- **Multi-profiles overview**: A new navigation menu can display all your profiles with notification indicators, allowing quick profile switching.
+- **Private by default:** New Bonfire instances start as invite-only, giving admins control over membership from day one.
+- **Interface improvements:** We've refined the user experience, enhanced notifications and ensured posts display properly across mobile devices.
+- **More reliable:** Tons of fixes for authentication, media uploads, mentions, moderation, and other core features.
+
+Additional improvements include:
+
+- Better translation and localization workflow
+- Smoother OAuth/OpenID login and SSO support
+- Updated documentation and guides for admins and contributors
+- Enhanced S3 integration for uploads
+- Lots of small bug fixes on comment threads, messaging, settings, and more
+
+For a comprehensive list of changes, here's the full changelog:
+
+### Added
+- ✨ Sanitize text included in the summary [#1421](https://github.com/bonfire-networks/bonfire-app/issues/1421) (thanks @ivanminutillo and @mayel)
+- ✨ Add first 200 (configurable) chars in the summary rather than full article [#1420](https://github.com/bonfire-networks/bonfire-app/issues/1420) (thanks @ivanminutillo and @mayel)
+- ✨ tell s3 the content type of uploads [#1416](https://github.com/bonfire-networks/bonfire-app/issues/1416) (thanks @mayel)
+- ✨ add feed filter to hide my own activities [#1400](https://github.com/bonfire-networks/bonfire-app/issues/1400) (thanks @mayel)
+- ✨ document S3 configuration [#1399](https://github.com/bonfire-networks/bonfire-app/issues/1399) (thanks @mayel)
+- ✨ better handling for admin signup upon setting up an instance [#1396](https://github.com/bonfire-networks/bonfire-app/issues/1396) (thanks @mayel)
+- ✨ make articles available in RSS feeds [#1380](https://github.com/bonfire-networks/bonfire-app/issues/1380) (thanks @mayel)
+- ✨ make articles availabe as markdown files [#1379](https://github.com/bonfire-networks/bonfire-app/issues/1379) (thanks @mayel)
+- ✨ add an indication for translators of where (in the web app, not just the code) a string is used [#1373](https://github.com/bonfire-networks/bonfire-app/issues/1373) (thanks @mayel)
+- ✨ if an article has an image attached display it as the article cover and do not display the media in the article activity preview [#1372](https://github.com/bonfire-networks/bonfire-app/issues/1372) (thanks @ivanminutillo and @mayel)
+- ✨ Make sure peered is recorded for unsupported ActivityPub types (APActivity) [#1368](https://github.com/bonfire-networks/bonfire-app/issues/1368) (thanks @mayel)
+- ✨ implement custom asset url for url generation by `Entrepot.Storages.S3` [#1360](https://github.com/bonfire-networks/bonfire-app/issues/1360) (thanks @mayel and @jeffsikes)
+- ✨ Enable invite-only by default when setting up an instance [#1348](https://github.com/bonfire-networks/bonfire-app/issues/1348) (thanks @mayel)
+- ✨ Add new feed presets for Events, Books, Articles [#1335](https://github.com/bonfire-networks/bonfire-app/issues/1335) (thanks @ivanminutillo and @mayel)
+- ✨ Let users create Article (instead of a note) from the Composer [#1327](https://github.com/bonfire-networks/bonfire-app/issues/1327) (thanks @ivanminutillo)
+- ✨ Create "Article" activity type to properly federate Long-form Text [#1326](https://github.com/bonfire-networks/bonfire-app/issues/1326) (thanks @ivanminutillo and @mayel)
+- ✨ Add Articles feed presets [#1325](https://github.com/bonfire-networks/bonfire-app/issues/1325) (thanks @ivanminutillo and @mayel)
+- ✨ Create custom article previews [#1324](https://github.com/bonfire-networks/bonfire-app/issues/1324) (thanks @ivanminutillo and @mayel)
+- ✨ migration & importing follows should be disabled when federation is disabled [#1321](https://github.com/bonfire-networks/bonfire-app/issues/1321) (thanks @mayel)
+- ✨ Add tests for the new custom feed control tabs [#1306](https://github.com/bonfire-networks/bonfire-app/issues/1306) (thanks @ivanminutillo)
+- ✨ Improve long form / article preview [#1305](https://github.com/bonfire-networks/bonfire-app/issues/1305) (thanks @ivanminutillo)
+- ✨ Show number of new notifications & messages for each user on switch profile page [#878](https://github.com/bonfire-networks/bonfire-app/issues/878) (thanks @mayel)
+- ✨ Local timeline sometime includes remote activities [#545](https://github.com/bonfire-networks/bonfire-app/issues/545) (thanks @mayel)
+- ✨ add phoenix_gon dep [`aa1d50c`](https://github.com/bonfire-networks/bonfire-app/commit/aa1d50cf6480b519a530f5c1369d104ef83bbe14) (thanks @mayel)
+- ✨ Create HOWTO_add_feed_preset.md [`b3c8969`](https://github.com/bonfire-networks/bonfire-app/commit/b3c89696286c465c5639de4a742446d95b98e709) (thanks @ivanminutillo)
+
+### Changed
+- 💅 If an article does not have an image, remove the current preview [#1371](https://github.com/bonfire-networks/bonfire-app/issues/1371) (thanks @ivanminutillo)
+- 💅 disable @ mention autocomplete in DMs [#1351](https://github.com/bonfire-networks/bonfire-app/issues/1351) (thanks @ivanminutillo and @mayel)
+- 💅 longer posts gets truncated but "read more" button is not showing up [#1344](https://github.com/bonfire-networks/bonfire-app/issues/1344) (thanks @ivanminutillo and @mayel)
+- 💅 show media attachments on comments within a thread [#1341](https://github.com/bonfire-networks/bonfire-app/issues/1341) (thanks @mayel)
+- 💅 link preview should be included also in reply_to [#1339](https://github.com/bonfire-networks/bonfire-app/issues/1339) (thanks @ivanminutillo)
+- 📝 Sometime text after a mention becomes part of the link [#1334](https://github.com/bonfire-networks/bonfire-app/issues/1334) (thanks @ivanminutillo and @mayel)
+- 🚀 During profile creation, if a user enters a username/handle first before the name field, the handle field is overwritten by the name field [#1332](https://github.com/bonfire-networks/bonfire-app/issues/1332) (thanks @ivanminutillo)
+- 💅 In the Notification view, the "clear notifications" button misses an explanation tooltip [#1318](https://github.com/bonfire-networks/bonfire-app/issues/1318) (thanks @ivanminutillo)
+- 🚀 make sure SSO signup works on invite-only instances [#1315](https://github.com/bonfire-networks/bonfire-app/issues/1315) (thanks @mayel)
+- 🚀 get localisation in place again [#1274](https://github.com/bonfire-networks/bonfire-app/issues/1274) (thanks @mayel and @ivanminutillo)
+- 🚀 Documentation: Build on Bonfire section [#939](https://github.com/bonfire-networks/bonfire-app/issues/939) (thanks @ivanminutillo and @mayel)
+- 💅 display activitystreams objects correctly in reply_to [#838](https://github.com/bonfire-networks/bonfire-app/issues/838) (thanks @mayel)
+- 🚀 Document data patterns [#170](https://github.com/bonfire-networks/bonfire-app/issues/170) (thanks @mayel)
+- 📝 attempt fix for image uploads [`f8e7052`](https://github.com/bonfire-networks/bonfire-app/commit/f8e70527df0c20ea718821bf27a5c8a91318af16) (thanks @mayel)
+- 📝 docker compose fix [`dd852eb`](https://github.com/bonfire-networks/bonfire-app/commit/dd852eb2dcf90cf404b1902c23554c070841822d) (thanks @mayel)
+- 📝 version number needs to be compatible with docker tag formatting [`02ee766`](https://github.com/bonfire-networks/bonfire-app/commit/02ee766804a6602035fb793d539caa69ca474614) (thanks @mayel)
+- 🚀 better `just secrets` command [`02de529`](https://github.com/bonfire-networks/bonfire-app/commit/02de529d1d2c8b3cc1f5e634445ba207dd61d6e8) (thanks @mayel)
+- 🚀 update files extension [`4378cde`](https://github.com/bonfire-networks/bonfire-app/commit/4378cde33e5345e58adcb4cc2bc82aba55c52dbd) (thanks @mayel)
+- 🚧 improve oauth/openid login + implement dance tests for them [#1201](https://github.com/bonfire-networks/bonfire-app/issues/1201) (thanks @mayel)
+- 📝 attempt fix s3 uploads [`5280ec2`](https://github.com/bonfire-networks/bonfire-app/commit/5280ec22ae1e677f95f4728a0f0feb08c1c37434) (thanks @mayel)
+- 🚧 avatar images not showing up in search [#1362](https://github.com/bonfire-networks/bonfire-app/issues/1362) (thanks @mayel and @ivanminutillo)
+
+### Fixed
+- 🐛 incoming CW on remote posts not being recognised [#1411](https://github.com/bonfire-networks/bonfire-app/issues/1411) (thanks @mayel)
+- 🐛 some image attachments of remote posts not being shown [#1410](https://github.com/bonfire-networks/bonfire-app/issues/1410) (thanks @mayel)
+- 🐛 boosting a post shows the wrong subject when shown via pubsub [#1409](https://github.com/bonfire-networks/bonfire-app/issues/1409) (thanks @mayel)
+- 🐛 Instance and User Settings - Extra Settings page errors out [#1408](https://github.com/bonfire-networks/bonfire-app/issues/1408) (thanks @jeffsikes and @mayel)
+- 🐛 Custom Emoji are not appearing [#1407](https://github.com/bonfire-networks/bonfire-app/issues/1407) (thanks @jeffsikes and @mayel)
+- 🐛 Invite link from Admin UI and Email for docker builds are malformed [#1406](https://github.com/bonfire-networks/bonfire-app/issues/1406) (thanks @jeffsikes)
+- 🐛 fix cross-instance flagging test [#1402](https://github.com/bonfire-networks/bonfire-app/issues/1402) (thanks @mayel)
+- 🐛 Bug: Image Alt Text is cleared out when you start typing in the post body. [#1398](https://github.com/bonfire-networks/bonfire-app/issues/1398) (thanks @jeffsikes and @ivanminutillo)
+- 🐛 Bug: writing a post with empty lines results in double the space between paragraphs [#1395](https://github.com/bonfire-networks/bonfire-app/issues/1395) (thanks @mayel and @ivanminutillo)
+- 🐛 open deeply nested comment branch for the comment being loaded [#1394](https://github.com/bonfire-networks/bonfire-app/issues/1394) (thanks @mayel)
+- 🐛 Bug: should not send desktop notifications for pubsub other than notifications [#1386](https://github.com/bonfire-networks/bonfire-app/issues/1386) (thanks @mayel)
+- 🐛 youtube link appears broken [#1382](https://github.com/bonfire-networks/bonfire-app/issues/1382) (thanks @ivanminutillo and @mayel)
+- 🐛 Bug: when typing on the search page, the input box looses focus [#1369](https://github.com/bonfire-networks/bonfire-app/issues/1369) (thanks @mayel)
+- 🐛 Avatar icon not showing up in circle list members [#1365](https://github.com/bonfire-networks/bonfire-app/issues/1365) (thanks @ivanminutillo and @mayel)
+- 🐛 Avatar icon not showing up in followers/following list [#1364](https://github.com/bonfire-networks/bonfire-app/issues/1364) (thanks @ivanminutillo and @mayel)
+- 🐛 Subject is not shown in DM main post when it's current user [#1350](https://github.com/bonfire-networks/bonfire-app/issues/1350) (thanks @ivanminutillo and @mayel)
+- 🐛 sometimes get an error when trying to post rich context copy/pasted into the composer [#1349](https://github.com/bonfire-networks/bonfire-app/issues/1349) (thanks @mayel)
+- 🐛 cw not being taken into account in reply_to [#1347](https://github.com/bonfire-networks/bonfire-app/issues/1347) (thanks @mayel)
+- 🐛 link preview doesn't appear correctly when post/comment is shown via pubsub [#1346](https://github.com/bonfire-networks/bonfire-app/issues/1346) (thanks @mayel)
+- 🐛 @ mention not being taken into account when replying to a post [#1345](https://github.com/bonfire-networks/bonfire-app/issues/1345) (thanks @mayel and @ivanminutillo)
+- 🐛 CW "Show more" doesn't seem to work when logged out [#1343](https://github.com/bonfire-networks/bonfire-app/issues/1343) (thanks @mayel)
+- 🐛 A mention followed by an emoji is not rendered as a mention [#1342](https://github.com/bonfire-networks/bonfire-app/issues/1342) (thanks @ivanminutillo and @mayel)
+- 🐛 fix UI tests [#1340](https://github.com/bonfire-networks/bonfire-app/issues/1340) (thanks @mayel and @ivanminutillo)
+- 🐛 In the profile settings page, it's not clear if the avatar and cover are being uploaded or processed. [#1333](https://github.com/bonfire-networks/bonfire-app/issues/1333) (thanks @ivanminutillo)
+- 🐛 Better handle links in activity preview to avoid overflow [#1331](https://github.com/bonfire-networks/bonfire-app/issues/1331) (thanks @ivanminutillo)
+- 🐛 Clicking on a link always seems to redirect to /feed/local and then to the expected url [#1330](https://github.com/bonfire-networks/bonfire-app/issues/1330) (thanks @ivanminutillo)
+- 🐛 unknown AP types don't appear correctly in search results the first time they're searched [#1329](https://github.com/bonfire-networks/bonfire-app/issues/1329) (thanks @mayel)
+- 🐛 Bug: APActivity objects not being shown correctly in feed [#1323](https://github.com/bonfire-networks/bonfire-app/issues/1323) (thanks @mayel)
+- 🐛 Settings Profile: Error message after adding some aliases to my Pixelfed / Mastodon accounts [#1317](https://github.com/bonfire-networks/bonfire-app/issues/1317) (thanks @ivanminutillo and @mayel)
+- 🐛 Missing tooltips when mouse-over some actions button in activities. [#1316](https://github.com/bonfire-networks/bonfire-app/issues/1316) (thanks @ivanminutillo)
+- 🐛 If I set the feed time limit default to 1 month, it defaults to "day" in the feed control ui [#1309](https://github.com/bonfire-networks/bonfire-app/issues/1309) (thanks @ivanminutillo)
+- 🐛 Reply_to subject in smart input is not showing [#1308](https://github.com/bonfire-networks/bonfire-app/issues/1308) (thanks @ivanminutillo)
+- 🐛 Ensure feeds doesn't overflow on mobile [#1307](https://github.com/bonfire-networks/bonfire-app/issues/1307) (thanks @ivanminutillo)
+- 🐛 Bug: Mentions sometimes are parsed as URLs or mailto: links [#1303](https://github.com/bonfire-networks/bonfire-app/issues/1303) (thanks @xplosionmind, @mayel, and @ivanminutillo)
+- 🐛 Bug: default flavour is non-existent (docs) [#1243](https://github.com/bonfire-networks/bonfire-app/issues/1243) (thanks @Lechindianer and @mayel)
+- 🐛 aliases not appearing on user profile [#1233](https://github.com/bonfire-networks/bonfire-app/issues/1233) (thanks @mayel)
+- 🐛 Make sure pubsub works for new activities on user profile [#1214](https://github.com/bonfire-networks/bonfire-app/issues/1214) (thanks @mayel)
+- 🐛 Access denied when trying to view an uploaded document (in Scaleway's S3) [#947](https://github.com/bonfire-networks/bonfire-app/issues/947) (thanks @mayel and @ivanminutillo)
+- 🐛 fix aliases on profile [`79ebb16`](https://github.com/bonfire-networks/bonfire-app/commit/79ebb16e742804f20619edada16291315625db8f) (thanks @mayel)
+- 🐛 fix for openid [`ebb0a47`](https://github.com/bonfire-networks/bonfire-app/commit/ebb0a47d3771c963533b1da081bb4365cea9a619) (thanks @mayel)
+- 🐛 fix video upload in feed [`3d2091b`](https://github.com/bonfire-networks/bonfire-app/commit/3d2091be756934869bd17b351cbd2b7993bab1b5) (thanks @mayel)
+
+### Security
+- 🚨 auth extra logging [`06842f2`](https://github.com/bonfire-networks/bonfire-app/commit/06842f21461c75cb7cdfc61afa7774d7248d79ca) (thanks @mayel)
+
